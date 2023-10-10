@@ -85,7 +85,7 @@ public class LoginFrame extends javax.swing.JFrame {
                 regisBtActionPerformed(evt);
             }
         });
-        jPanel1.add(regisBt, new org.netbeans.lib.awtextra.AbsoluteConstraints(920, 430, 90, -1));
+        jPanel1.add(regisBt, new org.netbeans.lib.awtextra.AbsoluteConstraints(910, 430, 90, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);

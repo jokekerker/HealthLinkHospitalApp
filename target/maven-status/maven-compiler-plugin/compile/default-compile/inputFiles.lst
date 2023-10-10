@@ -3,6 +3,7 @@
 /Users/nuii/Project/SoftwareEngineering/Assignment3/HealthLinkHospitalApp/src/main/java/View/PatientDetailView.java
 /Users/nuii/Project/SoftwareEngineering/Assignment3/HealthLinkHospitalApp/src/main/java/Model/HealthcareProvider.java
 /Users/nuii/Project/SoftwareEngineering/Assignment3/HealthLinkHospitalApp/src/main/java/Model/patient/Patient.java
+/Users/nuii/Project/SoftwareEngineering/Assignment3/HealthLinkHospitalApp/src/main/java/com/mycompany/healthlinkhospitalapp/NewPatient.java
 /Users/nuii/Project/SoftwareEngineering/Assignment3/HealthLinkHospitalApp/src/main/java/Model/Appointment.java
 /Users/nuii/Project/SoftwareEngineering/Assignment3/HealthLinkHospitalApp/src/main/java/Model/User.java
 /Users/nuii/Project/SoftwareEngineering/Assignment3/HealthLinkHospitalApp/src/main/java/Presenter/AppointmentPresenter.java
@@ -13,3 +14,4 @@
 /Users/nuii/Project/SoftwareEngineering/Assignment3/HealthLinkHospitalApp/src/main/java/com/mycompany/healthlinkhospitalapp/Home.java
 /Users/nuii/Project/SoftwareEngineering/Assignment3/HealthLinkHospitalApp/src/main/java/Model/AppointmentStatus.java
 /Users/nuii/Project/SoftwareEngineering/Assignment3/HealthLinkHospitalApp/src/main/java/com/mycompany/healthlinkhospitalapp/LoginFrame.java
+/Users/nuii/Project/SoftwareEngineering/Assignment3/HealthLinkHospitalApp/src/main/java/com/mycompany/healthlinkhospitalapp/PatientManagement.java

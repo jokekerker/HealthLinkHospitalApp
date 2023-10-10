@@ -8,12 +8,12 @@ package com.mycompany.healthlinkhospitalapp;
  *
  * @author nuii
  */
-public class Home extends javax.swing.JFrame {
+public class PatientManagement extends javax.swing.JFrame {
 
     /**
-     * Creates new form Home
+     * Creates new form PatientManagement
      */
-    public Home() {
+    public PatientManagement() {
         initComponents();
     }
 
@@ -26,61 +26,28 @@ public class Home extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jMenu1 = new javax.swing.JMenu();
-        jMenu2 = new javax.swing.JMenu();
-        jMenu5 = new javax.swing.JMenu();
-        jMenu7 = new javax.swing.JMenu();
         jPanel1 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
-        jMenu3 = new javax.swing.JMenu();
-        patientMenu = new javax.swing.JMenuItem();
+        fileMenu = new javax.swing.JMenu();
         appointMenu = new javax.swing.JMenuItem();
         billMenu = new javax.swing.JMenuItem();
-        jMenuItem2 = new javax.swing.JMenuItem();
-        jMenuItem3 = new javax.swing.JMenuItem();
-
-        jMenu1.setText("jMenu1");
-
-        jMenu2.setText("jMenu2");
-
-        jMenu5.setText("jMenu5");
-
-        jMenu7.setText("jMenu7");
+        reportMenu = new javax.swing.JMenuItem();
+        logoutMenu = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-        jLabel1.setFont(new java.awt.Font("Helvetica Neue", 0, 36)); // NOI18N
-        jLabel1.setText("Welcome to Health Link Hospital");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(406, 406, 406)
-                .addComponent(jLabel1)
-                .addContainerGap(436, Short.MAX_VALUE))
+            .addGap(0, 1436, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(197, 197, 197)
-                .addComponent(jLabel1)
-                .addContainerGap(503, Short.MAX_VALUE))
+            .addGap(0, 878, Short.MAX_VALUE)
         );
 
-        jMenu3.setText("File");
-        jMenu3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-
-        patientMenu.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
-        patientMenu.setText("Patient Management");
-        patientMenu.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                patientMenuActionPerformed(evt);
-            }
-        });
-        jMenu3.add(patientMenu);
+        fileMenu.setText("File");
 
         appointMenu.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
         appointMenu.setText("Appointment");
@@ -89,18 +56,36 @@ public class Home extends javax.swing.JFrame {
                 appointMenuActionPerformed(evt);
             }
         });
-        jMenu3.add(appointMenu);
+        fileMenu.add(appointMenu);
 
+        billMenu.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
         billMenu.setText("Billing & Invoicing");
-        jMenu3.add(billMenu);
+        billMenu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                billMenuActionPerformed(evt);
+            }
+        });
+        fileMenu.add(billMenu);
 
-        jMenuItem2.setText("Report");
-        jMenu3.add(jMenuItem2);
+        reportMenu.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
+        reportMenu.setText("Report");
+        reportMenu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                reportMenuActionPerformed(evt);
+            }
+        });
+        fileMenu.add(reportMenu);
 
-        jMenuItem3.setText("Logout");
-        jMenu3.add(jMenuItem3);
+        logoutMenu.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
+        logoutMenu.setText("Logout");
+        logoutMenu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                logoutMenuActionPerformed(evt);
+            }
+        });
+        fileMenu.add(logoutMenu);
 
-        jMenuBar1.add(jMenu3);
+        jMenuBar1.add(fileMenu);
 
         setJMenuBar(jMenuBar1);
 
@@ -118,13 +103,21 @@ public class Home extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void billMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_billMenuActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_billMenuActionPerformed
+
     private void appointMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_appointMenuActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_appointMenuActionPerformed
 
-    private void patientMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_patientMenuActionPerformed
+    private void reportMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_reportMenuActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_patientMenuActionPerformed
+    }//GEN-LAST:event_reportMenuActionPerformed
+
+    private void logoutMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutMenuActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_logoutMenuActionPerformed
 
     /**
      * @param args the command line arguments
@@ -143,20 +136,20 @@ public class Home extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Home.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(PatientManagement.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Home.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(PatientManagement.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Home.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(PatientManagement.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Home.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(PatientManagement.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Home().setVisible(true);
+                new PatientManagement().setVisible(true);
             }
         });
     }
@@ -164,16 +157,10 @@ public class Home extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem appointMenu;
     private javax.swing.JMenuItem billMenu;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenu jMenu2;
-    private javax.swing.JMenu jMenu3;
-    private javax.swing.JMenu jMenu5;
-    private javax.swing.JMenu jMenu7;
+    private javax.swing.JMenu fileMenu;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem2;
-    private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JMenuItem patientMenu;
+    private javax.swing.JMenuItem logoutMenu;
+    private javax.swing.JMenuItem reportMenu;
     // End of variables declaration//GEN-END:variables
 }

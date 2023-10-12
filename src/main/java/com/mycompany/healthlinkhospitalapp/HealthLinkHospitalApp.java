@@ -1,15 +1,9 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- */
+
 
 package com.mycompany.healthlinkhospitalapp;
 
 import Presenter.PatientPersister;
 
-/**
- *
- * @author nuii
- */
 public class HealthLinkHospitalApp {
 
     public static void main(String[] args) {
@@ -17,7 +11,15 @@ public class HealthLinkHospitalApp {
         patientPersister.establishDatabaseConnection();
         
         java.awt.EventQueue.invokeLater(() -> {
-            new LoginFrame().setVisible(true);
+            LoginFrame loginFrame = new LoginFrame();
+            loginFrame.setVisible(true);
+            String userRole = authenticateUser(loginFrame);
+            Home home = new Home();
+            home.displayUsername(userRole);
         });
+    }
+    
+    private static String authenticateUser(LoginFrame loginFrame){
+        return "admin";
     }
 }

@@ -36,19 +36,20 @@ public class PatientPersister implements IPersist {
         USERNAME = "root";
         PASSWORD = "password";
 
+        establishDatabaseConnection();
     }
 
     public void establishDatabaseConnection() {
         try {
             PreparedStatement replaceUser;
             //Connects to the SQL instance
-            sqlConnection = DriverManager.getConnection(MYSQL_URL, USERNAME, PASSWORD);
+            Connection sqlConnection = DriverManager.getConnection(MYSQL_URL, USERNAME, PASSWORD);
             //Creates the database if not exists
-            createDBHLHospital = sqlConnection.prepareStatement("create database if not exists payroll_db");
+            PreparedStatement createDBHLHospital = sqlConnection.prepareStatement("create database if not exists healthlinkshospital_db");
             createDBHLHospital.executeUpdate();
-            if (sqlConnection != null) {
-                sqlConnection.close();
-            }
+
+            sqlConnection.close();
+
             //Connects to database
             dbConnection = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);
             createTableUser = dbConnection.prepareStatement(""
@@ -61,7 +62,7 @@ public class PatientPersister implements IPersist {
                     + "role varchar(50) not null, \n"
                     + "primary key (userid))");
             createTablePatient = dbConnection.prepareStatement(""
-                    + "create table if not exists employee(\n"
+                    + "create table if not exists patient(\n"
                     + "patientid int not null auto_increment ,\n"
                     + "name varchar(100) not null,\n"
                     + "gender varchar(20) not null,\n"
@@ -71,7 +72,7 @@ public class PatientPersister implements IPersist {
                     + "email varchar(50) not null,\n"
                     + "primary key (patientid))");
             createTableDiagnosis = dbConnection.prepareStatement(""
-                    + "create table if not exists employee(\n"
+                    + "create table if not exists diagnosis(\n"
                     + "patientid int not null auto_increment ,\n"
                     + "symptom varchar(200) not null,\n"
                     + "diagnosis varchar(200) not null,\n"
@@ -79,7 +80,7 @@ public class PatientPersister implements IPersist {
                     + "recordby varchar(100) not null,\n"
                     + "primary key (patientid))");
             createTableBilling = dbConnection.prepareStatement(""
-                    + "create table if not exists payroll(\n"
+                    + "create table if not exists billing(\n"
                     + "billid int not null auto_increment,\n"
                     + "patientid int not null,\n"
                     + "invoicedate int not null,\n"
@@ -90,24 +91,25 @@ public class PatientPersister implements IPersist {
                     + "primary key (billid))");
             createTableUser.executeUpdate();
             createTablePatient.executeUpdate();
+            createTableDiagnosis.executeUpdate();
             createTableBilling.executeUpdate();
 
             replaceUser = dbConnection.prepareStatement(
                     "replace into user"
-                    + "(id, name, username, password, email, role)"
-                    + "values (1, 'admin','admin','admin','admin@HLH.com.au','admin')"
+                    + "(name, username, password, email, role)"
+                    + "values ('admin','admin','admin','admin@HLH.com.au','admin')"
             );
             replaceUser.executeUpdate();
             replaceUser = dbConnection.prepareStatement(
                     "replace into user"
-                    + "(id, name, username, password, email, role)"
-                    + "values (2, 'hol','hols','holS453','hols@HLH.com.au','staff')"
+                    + "(name, username, password, email, role)"
+                    + "values ('hol','hols','holS453','hols@HLH.com.au','staff')"
             );
             replaceUser.executeUpdate();
             replaceUser = dbConnection.prepareStatement(
                     "replace into user"
-                    + "(id, name, username, password, email)"
-                    + "values (3, 'jon','john','johN789','john@HLH.com.au','user')"
+                    + "(name, username, password, email, role)"
+                    + "values ('jon','john','johN789','john@HLH.com.au','user')"
             );
             replaceUser.executeUpdate();
 
@@ -121,17 +123,35 @@ public class PatientPersister implements IPersist {
 
     public String authenticateUser(String username, String password) {
         try {
+
             PreparedStatement selectUser = dbConnection.prepareStatement("SELECT * FROM user WHERE username = ? AND password = ?");
             selectUser.setString(1, username);
             selectUser.setString(2, password);
             ResultSet results = selectUser.executeQuery();
-            
-            if(results.next()){
+
+            if (results.next()) {
                 return results.getString("role");
-            }else{
+            } else {
                 return null;
             }
-            
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public String getUsername(String role) {
+        try {
+            PreparedStatement selectUsername = dbConnection.prepareStatement("SELECT username FROM user WHERE role = ?");
+            selectUsername.setString(1, role);
+            ResultSet results = selectUsername.executeQuery();
+
+            if (results.next()) {
+                return results.getString("username");
+            } else {
+                return null;
+            }
         } catch (SQLException e) {
             e.printStackTrace();
             return null;
@@ -184,12 +204,12 @@ public class PatientPersister implements IPersist {
             ResultSet results = selectPatient.executeQuery();
             while (results.next()) {
                 patientList.add(new Patient(
-                        results.getLong("id"),
+                        results.getLong("patientid"),
                         results.getString("name"),
                         results.getString("gender"),
                         results.getString("dateOfBirth"),
                         results.getString("adress"),
-                        results.getString("phoneNumber"),
+                        results.getString("contactNumber"),
                         results.getString("email")));
             }
 

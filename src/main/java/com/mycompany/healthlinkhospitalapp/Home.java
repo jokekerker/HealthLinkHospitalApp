@@ -4,6 +4,9 @@
  */
 package com.mycompany.healthlinkhospitalapp;
 
+import Presenter.PatientPersister;
+import javax.swing.JLabel;
+
 /**
  *
  * @author nuii
@@ -32,6 +35,8 @@ public class Home extends javax.swing.JFrame {
         jMenu7 = new javax.swing.JMenu();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        lbUsername = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu3 = new javax.swing.JMenu();
         patientMenu = new javax.swing.JMenuItem();
@@ -51,24 +56,36 @@ public class Home extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jLabel1.setFont(new java.awt.Font("Helvetica Neue", 0, 36)); // NOI18N
-        jLabel1.setText("Welcome to Health Link Hospital");
+        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 36)); // NOI18N
+        jLabel1.setText("to Health Link Hospital Application");
+
+        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 36)); // NOI18N
+        jLabel2.setText("Welcome ");
+
+        lbUsername.setFont(new java.awt.Font("Tahoma", 0, 36)); // NOI18N
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(406, 406, 406)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(245, Short.MAX_VALUE)
+                .addComponent(jLabel2)
+                .addGap(65, 65, 65)
+                .addComponent(lbUsername)
+                .addGap(80, 80, 80)
                 .addComponent(jLabel1)
-                .addContainerGap(436, Short.MAX_VALUE))
+                .addGap(277, 277, 277))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(197, 197, 197)
-                .addComponent(jLabel1)
-                .addContainerGap(503, Short.MAX_VALUE))
+                .addGap(198, 198, 198)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(jLabel2)
+                    .addComponent(lbUsername))
+                .addContainerGap(502, Short.MAX_VALUE))
         );
 
         jMenu3.setText("File");
@@ -101,12 +118,20 @@ public class Home extends javax.swing.JFrame {
         });
         jMenu3.add(appointMenu);
 
+        billMenu.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
         billMenu.setText("Billing & Invoicing");
         jMenu3.add(billMenu);
 
+        jMenuItem2.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
         jMenuItem2.setText("Report");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
         jMenu3.add(jMenuItem2);
 
+        jMenuItem3.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
         jMenuItem3.setText("Logout");
         jMenu3.add(jMenuItem3);
 
@@ -140,6 +165,10 @@ public class Home extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_registerMenuActionPerformed
 
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -171,14 +200,27 @@ public class Home extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new Home().setVisible(true);
+
             }
         });
     }
+    
+    
+    public void displayUsername(String role) {
+        PatientPersister persister = new PatientPersister();
+        String username = persister.getUsername(role);
+        if (username != null) {
+            lbUsername.setText(username);
+            // Add the usernameLabel to your home page's layout
+        }
+    }
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem appointMenu;
     private javax.swing.JMenuItem billMenu;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
@@ -188,6 +230,7 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JLabel lbUsername;
     private javax.swing.JMenuItem patientMenu;
     private javax.swing.JMenuItem registerMenu;
     // End of variables declaration//GEN-END:variables

@@ -22,6 +22,7 @@ public class PatientManagement extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         newPatientMenu = new javax.swing.JButton();
         searchPatientMenu = new javax.swing.JButton();
+        searchPatientMenu1 = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         fileMenu = new javax.swing.JMenu();
         appointMenu = new javax.swing.JMenuItem();
@@ -35,24 +36,41 @@ public class PatientManagement extends javax.swing.JFrame {
         newPatientMenu.setText("Create New Patient");
 
         searchPatientMenu.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        searchPatientMenu.setText("Search Patient");
+        searchPatientMenu.setText("View Patient");
+        searchPatientMenu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                searchPatientMenuActionPerformed(evt);
+            }
+        });
+
+        searchPatientMenu1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        searchPatientMenu1.setText("Enter Patient health records");
+        searchPatientMenu1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                searchPatientMenu1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(195, 195, 195)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(newPatientMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 266, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(searchPatientMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 266, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(975, Short.MAX_VALUE))
+                .addGap(268, 268, 268)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(searchPatientMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 266, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(newPatientMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 266, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(266, 266, 266)
+                .addComponent(searchPatientMenu1, javax.swing.GroupLayout.PREFERRED_SIZE, 266, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(370, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(171, 171, 171)
-                .addComponent(newPatientMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(newPatientMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(searchPatientMenu1, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(99, 99, 99)
                 .addComponent(searchPatientMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(248, Short.MAX_VALUE))
@@ -130,6 +148,14 @@ public class PatientManagement extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_logoutMenuActionPerformed
 
+    private void searchPatientMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchPatientMenuActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_searchPatientMenuActionPerformed
+
+    private void searchPatientMenu1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchPatientMenu1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_searchPatientMenu1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -175,5 +201,6 @@ public class PatientManagement extends javax.swing.JFrame {
     private javax.swing.JButton newPatientMenu;
     private javax.swing.JMenuItem reportMenu;
     private javax.swing.JButton searchPatientMenu;
+    private javax.swing.JButton searchPatientMenu1;
     // End of variables declaration//GEN-END:variables
 }

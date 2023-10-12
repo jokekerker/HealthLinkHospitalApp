@@ -1,22 +1,18 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
+
 
 package com.mycompany.healthlinkhospitalapp;
 
 import javax.swing.JOptionPane;
+import Presenter.PatientPersister;
 
-/**
- *
- * @author nuii
- */
+
 public class LoginFrame extends javax.swing.JFrame {
 
     /** Creates new form LoginFrame */
     public LoginFrame() {
         initComponents();
     }
+    
 
     /** This method is called from within the constructor to
      * initialize the form.
@@ -107,13 +103,21 @@ public class LoginFrame extends javax.swing.JFrame {
 
     private void loginBtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginBtActionPerformed
         // TODO add your handling code here:
-        if(txtUsername.getText().equals("admin") && txtPassword.getText().equals("admin"))
-        {
-            setVisible(false);
-            new Home().setVisible(true);
+        String username = txtUsername.getText();
+        String password = txtPassword.getText();
+        PatientPersister persister = new PatientPersister();
         
-        }
-        else
+        String userRole = persister.authenticateUser(username, password);
+        if(userRole != null){
+            setVisible(false);
+            if("admin".equals(userRole)){
+                new Home().setVisible(true);
+            }else if("staff".equals(userRole)){
+                new Home().setVisible(true);
+            }else{
+                new UserHome().setVisible(true);
+            }
+        }else
             JOptionPane.showMessageDialog(null, "Incorrect Username or Password");
     }//GEN-LAST:event_loginBtActionPerformed
 

@@ -7,29 +7,27 @@ import java.util.List;
 public class Patient {
 
     private Long id;
-    private String firstName;
-    private String lastName;
+    private String name;
     private String gender;
-    private LocalDate dateOfBirth;
+    private String dateOfBirth;
     private String address;
     private String phoneNumber;
     private String email;
-    private List<MedicalRecord> medicalRecords; // A Patient can have multiple medical records
+    //private List<MedicalRecord> medicalRecords; // A Patient can have multiple medical records
 
     // Constructors, getters, and setters
     public Patient() {
     }
 
-    public Patient(Long id, String firstName, String lastName, String gender, LocalDate dateOfBirth, String address, String phoneNumber, String email, List<MedicalRecord> medicalRecords) {
+    public Patient(Long id, String name, String gender, String dateOfBirth, String address, String phoneNumber, String email) {
         this.id = id;
-        this.firstName = firstName;
-        this.lastName = lastName;
+        this.name = name;
         this.gender = gender;
         this.dateOfBirth = dateOfBirth;
         this.address = address;
         this.phoneNumber = phoneNumber;
         this.email = email;
-        this.medicalRecords = medicalRecords;
+        //this.medicalRecords = medicalRecords;
     }
 
     public Long getId() {
@@ -40,20 +38,12 @@ public class Patient {
         this.id = id;
     }
 
-    public String getFirstName() {
-        return firstName;
+    public String getName() {
+        return name;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getGender() {
@@ -64,11 +54,11 @@ public class Patient {
         this.gender = gender;
     }
 
-    public LocalDate getDateOfBirth() {
+    public String getDateOfBirth() {
         return dateOfBirth;
     }
 
-    public void setDateOfBirth(LocalDate dateOfBirth) {
+    public void setDateOfBirth(String dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
     }
 
@@ -96,7 +86,7 @@ public class Patient {
         this.email = email;
     }
 
-    public List<MedicalRecord> getMedicalRecords() {
+    /*public List<MedicalRecord> getMedicalRecords() {
         return medicalRecords;
     }
 
@@ -104,6 +94,6 @@ public class Patient {
         this.medicalRecords = medicalRecords;
     }
     // Methods for adding and retrieving medical records
-
+*/
     
 }

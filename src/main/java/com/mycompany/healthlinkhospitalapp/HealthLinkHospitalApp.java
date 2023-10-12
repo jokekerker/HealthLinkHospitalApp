@@ -4,6 +4,8 @@
 
 package com.mycompany.healthlinkhospitalapp;
 
+import Presenter.PatientPersister;
+
 /**
  *
  * @author nuii
@@ -11,6 +13,11 @@ package com.mycompany.healthlinkhospitalapp;
 public class HealthLinkHospitalApp {
 
     public static void main(String[] args) {
-        System.out.println("Hello World!");
+        PatientPersister patientPersister = new PatientPersister();
+        patientPersister.establishDatabaseConnection();
+        
+        java.awt.EventQueue.invokeLater(() -> {
+            new LoginFrame().setVisible(true);
+        });
     }
 }

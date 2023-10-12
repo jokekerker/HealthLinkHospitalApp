@@ -35,6 +35,7 @@ public class Home extends javax.swing.JFrame {
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu3 = new javax.swing.JMenu();
         patientMenu = new javax.swing.JMenuItem();
+        registerMenu = new javax.swing.JMenuItem();
         appointMenu = new javax.swing.JMenuItem();
         billMenu = new javax.swing.JMenuItem();
         jMenuItem2 = new javax.swing.JMenuItem();
@@ -82,6 +83,15 @@ public class Home extends javax.swing.JFrame {
         });
         jMenu3.add(patientMenu);
 
+        registerMenu.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
+        registerMenu.setText("Register User");
+        registerMenu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                registerMenuActionPerformed(evt);
+            }
+        });
+        jMenu3.add(registerMenu);
+
         appointMenu.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
         appointMenu.setText("Appointment");
         appointMenu.addActionListener(new java.awt.event.ActionListener() {
@@ -125,6 +135,10 @@ public class Home extends javax.swing.JFrame {
     private void patientMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_patientMenuActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_patientMenuActionPerformed
+
+    private void registerMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registerMenuActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_registerMenuActionPerformed
 
     /**
      * @param args the command line arguments
@@ -175,5 +189,6 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JMenuItem patientMenu;
+    private javax.swing.JMenuItem registerMenu;
     // End of variables declaration//GEN-END:variables
 }

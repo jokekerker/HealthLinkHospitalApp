@@ -15,7 +15,7 @@ public class HealthLinkHospitalApp {
             loginFrame.setVisible(true);
             String userRole = authenticateUser(loginFrame);
             Home home = new Home();
-            home.displayUsername(userRole);
+            home.displayUsername();
         });
     }
     

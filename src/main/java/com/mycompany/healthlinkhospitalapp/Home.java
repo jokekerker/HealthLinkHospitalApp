@@ -8,12 +8,15 @@ import Presenter.PatientPersister;
 import java.util.Map;
 import javax.swing.JLabel;
 
+import Model.Login;
+
 /**
  *
  * @author nuii
  */
 public class Home extends javax.swing.JFrame {
     private PatientPersister patientPersister;
+    private Login login = new Login();
 
     /**
      * Creates new form Home
@@ -21,9 +24,11 @@ public class Home extends javax.swing.JFrame {
      * @param role
      * @param username
      */
-    public Home(String role, String username) {
+    public Home(String role, String username, Login login) {
+        this.login = login;
         initComponents();
-        displayUsername(username);
+        displayUsername();
+        
 
     }
 
@@ -232,14 +237,14 @@ public class Home extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                Home home = new Home();
-                new Home().setVisible(true);
+                
             }
         });
     }
 
-    public void displayUsername(String username) {
-        lbUsername.setText(username);
+    public void displayUsername() {
+
+        lbUsername.setText(this.login.getName());
 
     }
 

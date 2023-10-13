@@ -34,6 +34,11 @@ public class PatientManagement extends javax.swing.JFrame {
 
         newPatientMenu.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         newPatientMenu.setText("Create New Patient");
+        newPatientMenu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                newPatientMenuActionPerformed(evt);
+            }
+        });
 
         searchPatientMenu.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         searchPatientMenu.setText("View Patient");
@@ -73,10 +78,11 @@ public class PatientManagement extends javax.swing.JFrame {
                     .addComponent(searchPatientMenu1, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(99, 99, 99)
                 .addComponent(searchPatientMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(248, Short.MAX_VALUE))
+                .addContainerGap(249, Short.MAX_VALUE))
         );
 
         fileMenu.setText("File");
+        fileMenu.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
 
         appointMenu.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
         appointMenu.setText("Appointment");
@@ -155,6 +161,11 @@ public class PatientManagement extends javax.swing.JFrame {
     private void searchPatientMenu1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchPatientMenu1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_searchPatientMenu1ActionPerformed
+
+    private void newPatientMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newPatientMenuActionPerformed
+        // TODO add your handling code here:
+        new NewPatient().setVisible(true);
+    }//GEN-LAST:event_newPatientMenuActionPerformed
 
     /**
      * @param args the command line arguments

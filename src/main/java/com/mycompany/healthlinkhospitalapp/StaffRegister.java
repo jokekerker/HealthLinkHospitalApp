@@ -4,17 +4,27 @@
  */
 package com.mycompany.healthlinkhospitalapp;
 
+import Model.User;
+import Presenter.PatientPersister;
+import java.sql.Connection;
+import java.util.Arrays;
+import java.util.LinkedList;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author nuii
  */
 public class StaffRegister extends javax.swing.JFrame {
 
+    private PatientPersister patientPersister;
+
     /**
      * Creates new form Register
      */
-    public StaffRegister() {
+    public StaffRegister(PatientPersister patientPersister) {
         initComponents();
+        this.patientPersister = patientPersister;
     }
 
     /**
@@ -28,9 +38,7 @@ public class StaffRegister extends javax.swing.JFrame {
 
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        txtFName = new javax.swing.JTextField();
-        txtLName = new javax.swing.JTextField();
+        txtName = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         txtUserName = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
@@ -39,8 +47,8 @@ public class StaffRegister extends javax.swing.JFrame {
         txtPasswordCF = new javax.swing.JPasswordField();
         jLabel7 = new javax.swing.JLabel();
         txtEmail = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        btRegister = new javax.swing.JButton();
+        btClear = new javax.swing.JButton();
         jLabel8 = new javax.swing.JLabel();
         roleBox = new javax.swing.JComboBox<>();
         jMenuBar1 = new javax.swing.JMenuBar();
@@ -55,12 +63,7 @@ public class StaffRegister extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel2.setText("First Name");
 
-        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel3.setText("Last Name");
-
-        txtFName.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
-
-        txtLName.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
+        txtName.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel4.setText("User Name");
@@ -76,19 +79,24 @@ public class StaffRegister extends javax.swing.JFrame {
         jLabel7.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel7.setText("Email");
 
-        jButton1.setText("Register");
-
-        jButton2.setText("Clear");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        btRegister.setText("Register");
+        btRegister.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                btRegisterActionPerformed(evt);
+            }
+        });
+
+        btClear.setText("Clear");
+        btClear.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btClearActionPerformed(evt);
             }
         });
 
         jLabel8.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel8.setText("Role");
 
-        roleBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        roleBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "admin", "staff", "user" }));
 
         jMenu1.setText("File");
 
@@ -109,13 +117,12 @@ public class StaffRegister extends javax.swing.JFrame {
                     .addComponent(jLabel1)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                         .addGroup(layout.createSequentialGroup()
-                            .addComponent(jButton1)
+                            .addComponent(btRegister)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(jButton2))
+                            .addComponent(btClear))
                         .addGroup(layout.createSequentialGroup()
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(jLabel2)
-                                .addComponent(jLabel3)
                                 .addComponent(jLabel4)
                                 .addComponent(jLabel5)
                                 .addComponent(jLabel6)
@@ -124,8 +131,7 @@ public class StaffRegister extends javax.swing.JFrame {
                             .addGap(43, 43, 43)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                 .addComponent(txtUserName, javax.swing.GroupLayout.DEFAULT_SIZE, 128, Short.MAX_VALUE)
-                                .addComponent(txtLName)
-                                .addComponent(txtFName)
+                                .addComponent(txtName)
                                 .addComponent(txtPassword)
                                 .addComponent(txtPasswordCF)
                                 .addComponent(txtEmail)
@@ -140,11 +146,7 @@ public class StaffRegister extends javax.swing.JFrame {
                 .addGap(68, 68, 68)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(txtFName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(txtLName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
@@ -167,17 +169,59 @@ public class StaffRegister extends javax.swing.JFrame {
                     .addComponent(roleBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(55, 55, 55)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2))
-                .addContainerGap(182, Short.MAX_VALUE))
+                    .addComponent(btRegister)
+                    .addComponent(btClear))
+                .addContainerGap(222, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void btClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btClearActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton2ActionPerformed
+        txtName.setText("");
+        txtUserName.setText("");
+        txtPassword.setText("");
+        txtPasswordCF.setText("");
+        txtEmail.setText("");
+        roleBox.setSelectedItem("");
+    }//GEN-LAST:event_btClearActionPerformed
+
+    private void btRegisterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btRegisterActionPerformed
+        // TODO add your handling code here:
+        String name = txtName.getText();
+        String username = txtUserName.getText();
+        char[] password = txtPassword.getPassword();
+        char[] confirmPassword = txtPasswordCF.getPassword();
+        String email = txtEmail.getText();
+        String selectedRole = (String) roleBox.getSelectedItem();
+
+        // Check if the password matches the confirm password
+        if (Arrays.equals(password, confirmPassword)) {
+            // Create a User object with the provided data
+            User user = new User();
+            user.setName(name);
+            user.setUsername(username);
+            user.setPassword(new String(password));
+            user.setEmail(email);
+            user.setRoles(selectedRole);
+
+            // Create a list of users and add the user to the list
+            LinkedList<User> userList = new LinkedList<>();
+            userList.add(user);
+
+            // Call the addUsers method to insert the user into the database
+            Connection connection = patientPersister.getConnection();
+            patientPersister.addUsers(userList, connection);
+
+            // Optionally, you can display a message to indicate success
+            JOptionPane.showMessageDialog(this, "Registration successful.");
+        } else {
+            JOptionPane.showMessageDialog(this, "Password and Confirm Password do not match.");
+        }
+
+
+    }//GEN-LAST:event_btRegisterActionPerformed
 
     /**
      * @param args the command line arguments
@@ -193,34 +237,42 @@ public class StaffRegister extends javax.swing.JFrame {
                 if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
+
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(UserRegister.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(UserRegister.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(UserRegister.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(UserRegister.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(UserRegister.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(UserRegister.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(UserRegister.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(UserRegister.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
         //</editor-fold>
+        PatientPersister patientPersister = new PatientPersister();
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new UserRegister().setVisible(true);
+                new UserRegister(patientPersister).setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JButton btClear;
+    private javax.swing.JButton btRegister;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
@@ -231,8 +283,7 @@ public class StaffRegister extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JComboBox<String> roleBox;
     private javax.swing.JTextField txtEmail;
-    private javax.swing.JTextField txtFName;
-    private javax.swing.JTextField txtLName;
+    private javax.swing.JTextField txtName;
     private javax.swing.JPasswordField txtPassword;
     private javax.swing.JPasswordField txtPasswordCF;
     private javax.swing.JTextField txtUserName;

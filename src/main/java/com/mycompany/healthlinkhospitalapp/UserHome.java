@@ -65,11 +65,11 @@ public class UserHome extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(197, 197, 197)
                 .addComponent(jLabel1)
-                .addContainerGap(503, Short.MAX_VALUE))
+                .addContainerGap(504, Short.MAX_VALUE))
         );
 
         jMenu3.setText("File");
-        jMenu3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jMenu3.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
 
         appointMenu.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
         appointMenu.setText("View Appointment");
@@ -88,6 +88,7 @@ public class UserHome extends javax.swing.JFrame {
         });
         jMenu3.add(billMenu);
 
+        jMenuItem3.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
         jMenuItem3.setText("Logout");
         jMenu3.add(jMenuItem3);
 

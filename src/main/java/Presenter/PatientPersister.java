@@ -7,8 +7,10 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 public class PatientPersister implements IPersist {
 
@@ -28,6 +30,10 @@ public class PatientPersister implements IPersist {
     private PreparedStatement selectPatient;
 
     private List<User> userList;
+    
+    public Connection getConnection(){
+        return dbConnection;
+    }
 
     public PatientPersister() {
         MYSQL_URL = "jdbc:mysql://localhost:3306";
@@ -43,7 +49,7 @@ public class PatientPersister implements IPersist {
         try {
             PreparedStatement replaceUser;
             //Connects to the SQL instance
-            Connection sqlConnection = DriverManager.getConnection(MYSQL_URL, USERNAME, PASSWORD);
+            sqlConnection = DriverManager.getConnection(MYSQL_URL, USERNAME, PASSWORD);
             //Creates the database if not exists
             PreparedStatement createDBHLHospital = sqlConnection.prepareStatement("create database if not exists healthlinkshospital_db");
             createDBHLHospital.executeUpdate();
@@ -96,20 +102,20 @@ public class PatientPersister implements IPersist {
 
             replaceUser = dbConnection.prepareStatement(
                     "replace into user"
-                    + "(name, username, password, email, role)"
-                    + "values ('admin','admin','admin','admin@HLH.com.au','admin')"
+                    + "(userid, name, username, password, email, role)"
+                    + "values (1,'admin','admin','admin','admin@HLH.com.au','admin')"
             );
             replaceUser.executeUpdate();
             replaceUser = dbConnection.prepareStatement(
                     "replace into user"
-                    + "(name, username, password, email, role)"
-                    + "values ('hol','hols','holS453','hols@HLH.com.au','staff')"
+                    + "(userid, name, username, password, email, role)"
+                    + "values (2,'staff','staff','staff','staff@HLH.com.au','staff')"
             );
             replaceUser.executeUpdate();
             replaceUser = dbConnection.prepareStatement(
                     "replace into user"
-                    + "(name, username, password, email, role)"
-                    + "values ('jon','john','johN789','john@HLH.com.au','user')"
+                    + "(userid, name, username, password, email, role)"
+                    + "values (3, 'user','user','user','user@HLH.com.au','user')"
             );
             replaceUser.executeUpdate();
 
@@ -121,7 +127,7 @@ public class PatientPersister implements IPersist {
         }
     }
 
-    public String authenticateUser(String username, String password) {
+    public Map <String, String> authenticateUser(String username, String password) {
         try {
 
             PreparedStatement selectUser = dbConnection.prepareStatement("SELECT * FROM user WHERE username = ? AND password = ?");
@@ -130,7 +136,10 @@ public class PatientPersister implements IPersist {
             ResultSet results = selectUser.executeQuery();
 
             if (results.next()) {
-                return results.getString("role");
+                Map<String, String> userDetails = new HashMap<>();
+                userDetails.put("role", results.getString("role"));
+                userDetails.put("username", results.getString("username"));
+                return userDetails;
             } else {
                 return null;
             }
@@ -158,8 +167,10 @@ public class PatientPersister implements IPersist {
         }
     }
 
-    public void addUsers(LinkedList<User> userList) {
+    public void addUsers(LinkedList<User> userList, Connection connection) {
+        PreparedStatement inserUser = null;
         try {
+            insertUser = connection.prepareStatement("INSERT INTO users (id, username, password, name, email, roles) VALUES (?, ?, ?, ?, ?, ?)");
             for (User oneUser : userList) {
                 insertUser.setLong(1, oneUser.getId());
                 insertUser.setString(2, oneUser.getUsername());

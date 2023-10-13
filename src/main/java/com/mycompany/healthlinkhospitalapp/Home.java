@@ -5,6 +5,7 @@
 package com.mycompany.healthlinkhospitalapp;
 
 import Presenter.PatientPersister;
+import java.util.Map;
 import javax.swing.JLabel;
 
 /**
@@ -12,10 +13,20 @@ import javax.swing.JLabel;
  * @author nuii
  */
 public class Home extends javax.swing.JFrame {
+    private PatientPersister patientPersister;
 
     /**
      * Creates new form Home
+     *
+     * @param role
+     * @param username
      */
+    public Home(String role, String username) {
+        initComponents();
+        displayUsername(username);
+
+    }
+
     public Home() {
         initComponents();
     }
@@ -43,8 +54,8 @@ public class Home extends javax.swing.JFrame {
         registerMenu = new javax.swing.JMenuItem();
         appointMenu = new javax.swing.JMenuItem();
         billMenu = new javax.swing.JMenuItem();
-        jMenuItem2 = new javax.swing.JMenuItem();
-        jMenuItem3 = new javax.swing.JMenuItem();
+        reportMenu = new javax.swing.JMenuItem();
+        logoutMenu = new javax.swing.JMenuItem();
 
         jMenu1.setText("jMenu1");
 
@@ -71,9 +82,9 @@ public class Home extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(245, Short.MAX_VALUE)
                 .addComponent(jLabel2)
-                .addGap(65, 65, 65)
-                .addComponent(lbUsername)
-                .addGap(80, 80, 80)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lbUsername, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel1)
                 .addGap(277, 277, 277))
         );
@@ -84,8 +95,8 @@ public class Home extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(jLabel2)
-                    .addComponent(lbUsername))
-                .addContainerGap(502, Short.MAX_VALUE))
+                    .addComponent(lbUsername, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(499, Short.MAX_VALUE))
         );
 
         jMenu3.setText("File");
@@ -120,20 +131,30 @@ public class Home extends javax.swing.JFrame {
 
         billMenu.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
         billMenu.setText("Billing & Invoicing");
-        jMenu3.add(billMenu);
-
-        jMenuItem2.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
-        jMenuItem2.setText("Report");
-        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+        billMenu.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem2ActionPerformed(evt);
+                billMenuActionPerformed(evt);
             }
         });
-        jMenu3.add(jMenuItem2);
+        jMenu3.add(billMenu);
 
-        jMenuItem3.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
-        jMenuItem3.setText("Logout");
-        jMenu3.add(jMenuItem3);
+        reportMenu.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
+        reportMenu.setText("Report");
+        reportMenu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                reportMenuActionPerformed(evt);
+            }
+        });
+        jMenu3.add(reportMenu);
+
+        logoutMenu.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
+        logoutMenu.setText("Logout");
+        logoutMenu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                logoutMenuActionPerformed(evt);
+            }
+        });
+        jMenu3.add(logoutMenu);
 
         jMenuBar1.add(jMenu3);
 
@@ -155,19 +176,31 @@ public class Home extends javax.swing.JFrame {
 
     private void appointMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_appointMenuActionPerformed
         // TODO add your handling code here:
+        new NewAppointment().setVisible(true);
     }//GEN-LAST:event_appointMenuActionPerformed
 
     private void patientMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_patientMenuActionPerformed
         // TODO add your handling code here:
+        new PatientManagement().setVisible(true);
     }//GEN-LAST:event_patientMenuActionPerformed
 
     private void registerMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registerMenuActionPerformed
         // TODO add your handling code here:
+        new StaffRegister(patientPersister).setVisible(true);
     }//GEN-LAST:event_registerMenuActionPerformed
 
-    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+    private void reportMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_reportMenuActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jMenuItem2ActionPerformed
+    }//GEN-LAST:event_reportMenuActionPerformed
+
+    private void logoutMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutMenuActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_logoutMenuActionPerformed
+
+    private void billMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_billMenuActionPerformed
+        // TODO add your handling code here:
+        new Billing().setVisible(true);
+    }//GEN-LAST:event_billMenuActionPerformed
 
     /**
      * @param args the command line arguments
@@ -199,22 +232,17 @@ public class Home extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
+                Home home = new Home();
                 new Home().setVisible(true);
-
             }
         });
     }
-    
-    
-    public void displayUsername(String role) {
-        PatientPersister persister = new PatientPersister();
-        String username = persister.getUsername(role);
-        if (username != null) {
-            lbUsername.setText(username);
-            // Add the usernameLabel to your home page's layout
-        }
+
+    public void displayUsername(String username) {
+        lbUsername.setText(username);
+
     }
-    
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem appointMenu;
@@ -227,11 +255,11 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu5;
     private javax.swing.JMenu jMenu7;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem2;
-    private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel lbUsername;
+    private javax.swing.JMenuItem logoutMenu;
     private javax.swing.JMenuItem patientMenu;
     private javax.swing.JMenuItem registerMenu;
+    private javax.swing.JMenuItem reportMenu;
     // End of variables declaration//GEN-END:variables
 }

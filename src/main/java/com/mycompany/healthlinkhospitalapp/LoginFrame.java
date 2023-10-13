@@ -4,9 +4,12 @@ package com.mycompany.healthlinkhospitalapp;
 
 import javax.swing.JOptionPane;
 import Presenter.PatientPersister;
+import java.util.Map;
 
 
 public class LoginFrame extends javax.swing.JFrame {
+    
+    private PatientPersister patientPersister;
 
     /** Creates new form LoginFrame */
     public LoginFrame() {
@@ -107,12 +110,16 @@ public class LoginFrame extends javax.swing.JFrame {
         String password = txtPassword.getText();
         PatientPersister persister = new PatientPersister();
         
-        String userRole = persister.authenticateUser(username, password);
-        if(userRole != null){
+        Map<String, String> userDetails = persister.authenticateUser(username, password);
+        if(userDetails != null){
+            String role = userDetails.get("role");
+            String retrievedUsername = userDetails.get("username");
+            
+            Home home = new Home(role, retrievedUsername);
             setVisible(false);
-            if("admin".equals(userRole)){
+            if("admin".equals(role)){
                 new Home().setVisible(true);
-            }else if("staff".equals(userRole)){
+            }else if("staff".equals(role)){
                 new Home().setVisible(true);
             }else{
                 new UserHome().setVisible(true);
@@ -130,6 +137,7 @@ public class LoginFrame extends javax.swing.JFrame {
 
     private void regisBtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_regisBtActionPerformed
         // TODO add your handling code here:
+        new UserRegister(patientPersister).setVisible(true);
     }//GEN-LAST:event_regisBtActionPerformed
 
     /**

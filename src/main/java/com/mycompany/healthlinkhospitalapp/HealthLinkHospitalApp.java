@@ -2,12 +2,12 @@
 
 package com.mycompany.healthlinkhospitalapp;
 
-import Presenter.PatientPersister;
+import Presenter.Persister;
 
 public class HealthLinkHospitalApp {
 
     public static void main(String[] args) {
-        PatientPersister patientPersister = new PatientPersister();
+        Persister patientPersister = new Persister();
         patientPersister.establishDatabaseConnection();
         
         java.awt.EventQueue.invokeLater(() -> {

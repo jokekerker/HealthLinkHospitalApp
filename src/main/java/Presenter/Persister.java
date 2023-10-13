@@ -12,8 +12,8 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-public class PatientPersister implements IPersist {
-    
+public class Persister implements IPersist {
+
     private final String MYSQL_URL;
     private final String DB_URL;
     private final String USERNAME;
@@ -25,38 +25,39 @@ public class PatientPersister implements IPersist {
     private PreparedStatement createTablePatient;
     private PreparedStatement createTableDiagnosis;
     private PreparedStatement createTableBilling;
+    private PreparedStatement createTableAppointment;
     private PreparedStatement insertUser;
     private PreparedStatement insertPatient;
     private PreparedStatement selectPatient;
-    
+
     private List<User> userList;
-    
+
     public Connection getConnection() {
         if (dbConnection == null) {
             establishDatabaseConnection();
         }
         return dbConnection;
     }
-    
-    public PatientPersister() {
+
+    public Persister() {
         MYSQL_URL = "jdbc:mysql://localhost:3306";
         DB_URL = MYSQL_URL + "/healthlinkshospital_db";
-        
+
         USERNAME = "root";
         PASSWORD = "password";
-        
+
         establishDatabaseConnection();
     }
-    
+
     public void establishDatabaseConnection() {
         try {
             PreparedStatement replaceUser;
             //Connects to the SQL instance
             sqlConnection = DriverManager.getConnection(MYSQL_URL, USERNAME, PASSWORD);
             //Creates the database if not exists
-            PreparedStatement createDBHLHospital = sqlConnection.prepareStatement("create database if not exists healthlinkshospital_db");
+            createDBHLHospital = sqlConnection.prepareStatement("create database if not exists healthlinkshospital_db");
             createDBHLHospital.executeUpdate();
-            
+
             sqlConnection.close();
 
             //Connects to database
@@ -98,11 +99,22 @@ public class PatientPersister implements IPersist {
                     + "amount int not null,\n"
                     + "total int not null,\n"
                     + "primary key (billid))");
+            createTableAppointment = dbConnection.prepareStatement(""
+                    + "create table if not exists appointment(\n"
+                    + "appointmentid int not null auto_increment,\n"
+                    + "patientid int not null auto_increment, \n"
+                    + "name varchar(50) not null, \n"
+                    + "date varchar(50) not null, \n"
+                    + "symptom varchar(200) not null, \n"
+                    + "gpname varchar(50) not null, \n"
+                    + "status varchar(20) not null, \n"
+                    + "primary key (patientid))");
             createTableUser.executeUpdate();
             createTablePatient.executeUpdate();
             createTableDiagnosis.executeUpdate();
             createTableBilling.executeUpdate();
-            
+            createTableAppointment.executeUpdate();
+
             replaceUser = dbConnection.prepareStatement(
                     "replace into user"
                     + "(userid, name, username, password, email, role)"
@@ -121,7 +133,7 @@ public class PatientPersister implements IPersist {
                     + "values (3, 'user','user','user','user@HLH.com.au','user')"
             );
             replaceUser.executeUpdate();
-            
+
         } catch (SQLException e) {
             System.out.println("Connection Failed! Check output console");
             System.out.println("SQLException: " + e.getMessage());
@@ -129,15 +141,15 @@ public class PatientPersister implements IPersist {
             e.printStackTrace();
         }
     }
-    
+
     public Map<String, String> authenticateUser(String username, String password) {
         try {
-            
+
             PreparedStatement selectUser = dbConnection.prepareStatement("SELECT * FROM user WHERE username = ? AND password = ?");
             selectUser.setString(1, username);
             selectUser.setString(2, password);
             ResultSet results = selectUser.executeQuery();
-            
+
             if (results.next()) {
                 Map<String, String> userDetails = new HashMap<>();
                 userDetails.put("role", results.getString("role"));
@@ -146,19 +158,19 @@ public class PatientPersister implements IPersist {
             } else {
                 return null;
             }
-            
+
         } catch (SQLException e) {
             e.printStackTrace();
             return null;
         }
     }
-    
+
     public String getUsername(String role) {
         try {
             PreparedStatement selectUsername = dbConnection.prepareStatement("SELECT username FROM user WHERE role = ?");
             selectUsername.setString(1, role);
             ResultSet results = selectUsername.executeQuery();
-            
+
             if (results.next()) {
                 return results.getString("username");
             } else {
@@ -169,7 +181,7 @@ public class PatientPersister implements IPersist {
             return null;
         }
     }
-    
+
     public void addUsers(LinkedList<User> userList, Connection connection) {
         try {
             insertUser = connection.prepareStatement("INSERT INTO user (username, password, name, email, role) VALUES (?, ?, ?, ?, ?)");
@@ -189,7 +201,7 @@ public class PatientPersister implements IPersist {
             e.printStackTrace();
         }
     }
-    
+
     public void addPatients(LinkedList<Patient> patientList, Connection connection) {
         try {
             insertPatient = connection.prepareStatement("INSERT INTO patient (name, gender, dateofbirth, address, phonenumber, email) VALUES (?, ?, ?, ?, ?, ?)");
@@ -218,7 +230,7 @@ public class PatientPersister implements IPersist {
 
     //Synchronised select of all records from residence needful table 
     public LinkedList<Patient> selectPatients() {
-        
+
         LinkedList<Patient> patientList = new LinkedList<>();
         try {
             ResultSet results = selectPatient.executeQuery();
@@ -236,9 +248,9 @@ public class PatientPersister implements IPersist {
                         results.getString("medicareNo"),
                         results.getString("allergies"),
                         results.getString("registeredBy")));
-                
+
             }
-            
+
         } catch (SQLException e) {
             System.out.println("Connection Failed! Check output console");
             System.out.println("SQLException: " + e.getMessage());

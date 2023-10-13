@@ -5,19 +5,19 @@ import Model.User;
 import java.util.Arrays;
 import java.util.LinkedList;
 import javax.swing.JOptionPane;
-import Presenter.PatientPersister;
+import Presenter.Persister;
 import java.sql.Connection;
 
 public class UserRegister extends javax.swing.JFrame {
 
-    private PatientPersister patientPersister;
+    private Persister patientPersister;
 
     /**
      * Creates new form Register
      */
     public UserRegister() {
         initComponents();
-        patientPersister = new PatientPersister();
+        patientPersister = new Persister();
     }
 
     /**
@@ -246,7 +246,7 @@ public class UserRegister extends javax.swing.JFrame {
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
-        PatientPersister patientPersister = new PatientPersister();
+        Persister patientPersister = new Persister();
         UserRegister userRegister = new UserRegister();
         userRegister.setVisible(true);
 

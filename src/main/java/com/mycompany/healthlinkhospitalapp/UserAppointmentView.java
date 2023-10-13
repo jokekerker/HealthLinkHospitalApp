@@ -20,21 +20,98 @@ public class UserAppointmentView extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jLabel1 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
+        btClose = new javax.swing.JButton();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        jMenu1 = new javax.swing.JMenu();
+        healthRECMenu = new javax.swing.JMenuItem();
+        healthRECMenu1 = new javax.swing.JMenuItem();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 36)); // NOI18N
+        jLabel1.setText("Appointment");
+
+        jTable1.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null}
+            },
+            new String [] {
+                "Date", "Symptom", "GP Name"
+            }
+        ));
+        jScrollPane1.setViewportView(jTable1);
+
+        btClose.setText("Close");
+
+        jMenu1.setText("File");
+        jMenu1.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
+
+        healthRECMenu.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
+        healthRECMenu.setText("View Health records");
+        healthRECMenu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                healthRECMenuActionPerformed(evt);
+            }
+        });
+        jMenu1.add(healthRECMenu);
+
+        healthRECMenu1.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
+        healthRECMenu1.setText("Logout");
+        healthRECMenu1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                healthRECMenu1ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(healthRECMenu1);
+
+        jMenuBar1.add(jMenu1);
+
+        setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1366, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(86, 86, 86)
+                        .addComponent(jLabel1))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(36, 36, 36)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1294, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(36, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(btClose)
+                .addGap(180, 180, 180))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 768, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(59, 59, 59)
+                .addComponent(jLabel1)
+                .addGap(59, 59, 59)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(221, 221, 221)
+                .addComponent(btClose)
+                .addContainerGap(260, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void healthRECMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_healthRECMenuActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_healthRECMenuActionPerformed
+
+    private void healthRECMenu1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_healthRECMenu1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_healthRECMenu1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -72,5 +149,13 @@ public class UserAppointmentView extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btClose;
+    private javax.swing.JMenuItem healthRECMenu;
+    private javax.swing.JMenuItem healthRECMenu1;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable jTable1;
     // End of variables declaration//GEN-END:variables
 }

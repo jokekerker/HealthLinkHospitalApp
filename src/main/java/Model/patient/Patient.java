@@ -1,6 +1,6 @@
 package Model.patient;
 
-import Model.MedicalRecord;
+
 import java.time.LocalDate;
 import java.util.List;
 
@@ -19,7 +19,7 @@ public class Patient {
     private String medicareNo;
     private String allergies;
     private String registeredBy;
-    //private List<MedicalRecord> medicalRecords; // A Patient can have multiple medical records
+
 
     // Constructors, getters, and setters
     public Patient() {
@@ -146,14 +146,5 @@ public class Patient {
         this.email = email;
     }
 
-    /*public List<MedicalRecord> getMedicalRecords() {
-        return medicalRecords;
-    }
-
-    public void setMedicalRecords(List<MedicalRecord> medicalRecords) {
-        this.medicalRecords = medicalRecords;
-    }
-    // Methods for adding and retrieving medical records
-*/
     
 }

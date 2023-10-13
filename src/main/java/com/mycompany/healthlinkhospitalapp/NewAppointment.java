@@ -20,21 +20,259 @@ public class NewAppointment extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        txtPatientID = new javax.swing.JTextField();
+        btSearch = new javax.swing.JButton();
+        dateAppointment = new com.toedter.calendar.JDateChooser();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        txtGPName = new javax.swing.JTextField();
+        jLabel5 = new javax.swing.JLabel();
+        txtPatientName = new javax.swing.JTextField();
+        jLabel6 = new javax.swing.JLabel();
+        txtSymptom = new javax.swing.JTextField();
+        btSave = new javax.swing.JButton();
+        btClear = new javax.swing.JButton();
+        btClose = new javax.swing.JButton();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        jMenu1 = new javax.swing.JMenu();
+        patientManagementMenu = new javax.swing.JMenuItem();
+        registerMenu = new javax.swing.JMenuItem();
+        billMenu = new javax.swing.JMenuItem();
+        reportMenu = new javax.swing.JMenuItem();
+        logoutMenu = new javax.swing.JMenuItem();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 36)); // NOI18N
+        jLabel1.setText("New Appointment");
+
+        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
+        jLabel2.setText("Patient ID");
+
+        txtPatientID.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
+
+        btSearch.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
+        btSearch.setText("Search");
+        btSearch.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btSearchActionPerformed(evt);
+            }
+        });
+
+        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
+        jLabel3.setText("Date");
+
+        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
+        jLabel4.setText("GP Name");
+
+        txtGPName.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
+
+        jLabel5.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
+        jLabel5.setText("Name");
+
+        txtPatientName.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
+
+        jLabel6.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
+        jLabel6.setText("Symptom");
+
+        txtSymptom.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
+
+        btSave.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
+        btSave.setText("Save");
+        btSave.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btSaveActionPerformed(evt);
+            }
+        });
+
+        btClear.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
+        btClear.setText("Clear");
+        btClear.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btClearActionPerformed(evt);
+            }
+        });
+
+        btClose.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
+        btClose.setText("Close");
+        btClose.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btCloseActionPerformed(evt);
+            }
+        });
+
+        jMenu1.setText("File");
+        jMenu1.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
+
+        patientManagementMenu.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
+        patientManagementMenu.setText("Patient Management");
+        patientManagementMenu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                patientManagementMenuActionPerformed(evt);
+            }
+        });
+        jMenu1.add(patientManagementMenu);
+
+        registerMenu.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
+        registerMenu.setText("Register User");
+        registerMenu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                registerMenuActionPerformed(evt);
+            }
+        });
+        jMenu1.add(registerMenu);
+
+        billMenu.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
+        billMenu.setText("Billing & Invoicing");
+        billMenu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                billMenuActionPerformed(evt);
+            }
+        });
+        jMenu1.add(billMenu);
+
+        reportMenu.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
+        reportMenu.setText("Report");
+        reportMenu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                reportMenuActionPerformed(evt);
+            }
+        });
+        jMenu1.add(reportMenu);
+
+        logoutMenu.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
+        logoutMenu.setText("Logout");
+        logoutMenu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                logoutMenuActionPerformed(evt);
+            }
+        });
+        jMenu1.add(logoutMenu);
+
+        jMenuBar1.add(jMenu1);
+
+        setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1366, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(111, 111, 111)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel5)
+                            .addComponent(jLabel1))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel6)
+                                .addGap(31, 31, 31)
+                                .addComponent(txtSymptom))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel4)
+                                .addGap(31, 31, 31)
+                                .addComponent(txtGPName))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel2)
+                                    .addComponent(jLabel3))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(28, 28, 28)
+                                        .addComponent(dateAppointment, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(28, 28, 28)
+                                        .addComponent(txtPatientName, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(txtPatientID, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(43, 43, 43)
+                        .addComponent(btSearch)
+                        .addContainerGap(850, Short.MAX_VALUE))))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(225, 225, 225)
+                .addComponent(btSave)
+                .addGap(18, 18, 18)
+                .addComponent(btClear)
+                .addGap(18, 18, 18)
+                .addComponent(btClose)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 768, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(85, 85, 85)
+                .addComponent(jLabel1)
+                .addGap(38, 38, 38)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(txtPatientID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btSearch))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel5)
+                    .addComponent(txtPatientName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(30, 30, 30)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(dateAppointment, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3))
+                .addGap(37, 37, 37)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel6)
+                    .addComponent(txtSymptom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(26, 26, 26)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel4)
+                    .addComponent(txtGPName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(72, 72, 72)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btSave)
+                    .addComponent(btClear)
+                    .addComponent(btClose))
+                .addContainerGap(262, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void patientManagementMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_patientManagementMenuActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_patientManagementMenuActionPerformed
+
+    private void btSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSearchActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btSearchActionPerformed
+
+    private void btSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSaveActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btSaveActionPerformed
+
+    private void btClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btClearActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btClearActionPerformed
+
+    private void btCloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCloseActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btCloseActionPerformed
+
+    private void registerMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registerMenuActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_registerMenuActionPerformed
+
+    private void billMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_billMenuActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_billMenuActionPerformed
+
+    private void reportMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_reportMenuActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_reportMenuActionPerformed
+
+    private void logoutMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutMenuActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_logoutMenuActionPerformed
 
     /**
      * @param args the command line arguments
@@ -72,5 +310,27 @@ public class NewAppointment extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenuItem billMenu;
+    private javax.swing.JButton btClear;
+    private javax.swing.JButton btClose;
+    private javax.swing.JButton btSave;
+    private javax.swing.JButton btSearch;
+    private com.toedter.calendar.JDateChooser dateAppointment;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem logoutMenu;
+    private javax.swing.JMenuItem patientManagementMenu;
+    private javax.swing.JMenuItem registerMenu;
+    private javax.swing.JMenuItem reportMenu;
+    private javax.swing.JTextField txtGPName;
+    private javax.swing.JTextField txtPatientID;
+    private javax.swing.JTextField txtPatientName;
+    private javax.swing.JTextField txtSymptom;
     // End of variables declaration//GEN-END:variables
 }

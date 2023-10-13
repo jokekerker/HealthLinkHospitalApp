@@ -2,7 +2,7 @@
 package com.mycompany.healthlinkhospitalapp;
 
 import Model.patient.Patient;
-import Presenter.PatientPersister;
+import Presenter.Persister;
 import java.sql.Connection;
 import java.text.SimpleDateFormat;
 import java.util.LinkedList;
@@ -353,7 +353,7 @@ public class NewPatient extends javax.swing.JFrame {
         
         patients.add(patient);
         
-        PatientPersister patientPersister = new PatientPersister();
+        Persister patientPersister = new Persister();
         Connection connection = patientPersister.getConnection();
         patientPersister.addPatients(patients, connection);
         

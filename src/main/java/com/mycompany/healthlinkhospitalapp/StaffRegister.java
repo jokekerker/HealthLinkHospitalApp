@@ -2,7 +2,7 @@
 package com.mycompany.healthlinkhospitalapp;
 
 import Model.User;
-import Presenter.PatientPersister;
+import Presenter.Persister;
 import java.sql.Connection;
 import java.util.Arrays;
 import java.util.LinkedList;
@@ -14,14 +14,14 @@ import javax.swing.JOptionPane;
  */
 public class StaffRegister extends javax.swing.JFrame {
 
-    private PatientPersister patientPersister;
+    private Persister patientPersister;
 
     /**
      * Creates new form Register
      */
-    public StaffRegister(PatientPersister patientPersister) {
+    public StaffRegister() {
         initComponents();
-        this.patientPersister = patientPersister;
+        patientPersister = new Persister();
     }
 
     /**
@@ -256,7 +256,7 @@ public class StaffRegister extends javax.swing.JFrame {
         }
         //</editor-fold>
         //</editor-fold>
-        PatientPersister patientPersister = new PatientPersister();
+        Persister patientPersister = new Persister();
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {

@@ -1,8 +1,6 @@
-
 package com.mycompany.healthlinkhospitalapp;
 
-
-import Presenter.PatientPersister;
+import Presenter.Persister;
 import java.util.Map;
 import javax.swing.JLabel;
 import Model.Login;
@@ -12,7 +10,8 @@ import Model.Login;
  * @author nuii
  */
 public class Home extends javax.swing.JFrame {
-    private PatientPersister patientPersister;
+
+    private Persister patientPersister;
     private Login login = new Login();
 
     /**
@@ -178,23 +177,29 @@ public class Home extends javax.swing.JFrame {
 
     private void appointMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_appointMenuActionPerformed
         // TODO add your handling code here:
-        new NewAppointment().setVisible(true);
+        NewAppointment newappointment = new NewAppointment();
+        newappointment.setVisible(true);
     }//GEN-LAST:event_appointMenuActionPerformed
 
     private void patientMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_patientMenuActionPerformed
         // TODO add your handling code here:
-        new PatientManagement().setVisible(true);
+        PatientManagement patientManagement = new PatientManagement();
+        patientManagement.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_patientMenuActionPerformed
 
     private void registerMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registerMenuActionPerformed
         // TODO add your handling code here:
-        new StaffRegister(patientPersister).setVisible(true);
+        StaffRegister staffRegister = new StaffRegister();
+        staffRegister.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_registerMenuActionPerformed
 
     private void reportMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_reportMenuActionPerformed
         // TODO add your handling code here:
+        Report report = new Report();
+        report.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_reportMenuActionPerformed
 
     private void logoutMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutMenuActionPerformed
@@ -203,7 +208,8 @@ public class Home extends javax.swing.JFrame {
 
     private void billMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_billMenuActionPerformed
         // TODO add your handling code here:
-        new Billing().setVisible(true);
+        Billing billing = new Billing();
+        billing.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_billMenuActionPerformed
 

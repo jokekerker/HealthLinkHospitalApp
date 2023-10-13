@@ -1,14 +1,10 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
+
 package com.mycompany.healthlinkhospitalapp;
 
 import Model.patient.Patient;
 import Presenter.PatientPersister;
 import java.sql.Connection;
 import java.text.SimpleDateFormat;
-import java.util.Collections;
 import java.util.LinkedList;
 import javax.swing.JOptionPane;
 

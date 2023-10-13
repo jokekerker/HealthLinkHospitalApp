@@ -1,14 +1,10 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
+
 package com.mycompany.healthlinkhospitalapp;
 
-import Model.Login;
+
 import Presenter.PatientPersister;
 import java.util.Map;
 import javax.swing.JLabel;
-
 import Model.Login;
 
 /**
@@ -28,7 +24,7 @@ public class Home extends javax.swing.JFrame {
     public Home(String role, String username, Login login) {
         this.login = login;
         initComponents();
-        displayUsername(username);
+        displayUsername();
 
     }
 
@@ -241,17 +237,13 @@ public class Home extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-<<<<<<< HEAD
-                
-=======
 
->>>>>>> cec82c3 ([commit]-function)
             }
         });
     }
 
-    public void displayUsername(String username) {
-        lbUsername.setText(username);
+    public void displayUsername() {
+        lbUsername.setText(this.login.getName());
 
     }
 

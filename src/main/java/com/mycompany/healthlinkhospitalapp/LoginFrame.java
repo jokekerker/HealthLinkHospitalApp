@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import javax.cache.*;
+
 
 
 
@@ -127,13 +127,13 @@ public class LoginFrame extends javax.swing.JFrame {
             String role = userDetails.get("role");
             String retrievedUsername = userDetails.get("username");
             
-<<<<<<< HEAD
-            Home home = new Home(role, retrievedUsername);
-=======
+
+
+
             this.login.setName(retrievedUsername);
             
             Home home = new Home(role, retrievedUsername, this.login);
->>>>>>> cec82c3 ([commit]-function)
+
             setVisible(false);
             if("admin".equals(role)){
                 home.setVisible(true);
@@ -141,12 +141,10 @@ public class LoginFrame extends javax.swing.JFrame {
                 home.setVisible(true);
             }else{
                 home.setVisible(true);
-<<<<<<< HEAD
+
             }            
             
-=======
-            }
->>>>>>> cec82c3 ([commit]-function)
+
         }else
             JOptionPane.showMessageDialog(null, "Incorrect Username or Password");
     }//GEN-LAST:event_loginBtActionPerformed

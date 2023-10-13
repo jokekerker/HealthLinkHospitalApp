@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
+
 package com.mycompany.healthlinkhospitalapp;
 
 import Model.User;
@@ -11,10 +8,6 @@ import javax.swing.JOptionPane;
 import Presenter.PatientPersister;
 import java.sql.Connection;
 
-/**
- *
- * @author nuii
- */
 public class UserRegister extends javax.swing.JFrame {
 
     private PatientPersister patientPersister;

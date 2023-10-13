@@ -22,9 +22,9 @@ public class UserRegister extends javax.swing.JFrame {
     /**
      * Creates new form Register
      */
-    public UserRegister(PatientPersister patientPersister) {
+    public UserRegister() {
         initComponents();
-        this.patientPersister = patientPersister;
+        patientPersister = new PatientPersister();
     }
 
     /**
@@ -201,6 +201,9 @@ public class UserRegister extends javax.swing.JFrame {
                 if (connection != null) {
                     patientPersister.addUsers(userList, connection);
                     JOptionPane.showMessageDialog(this, "Registration successful.");
+                    this.dispose();
+                    LoginFrame loginFrame = new LoginFrame();
+                    loginFrame.setVisible(true);
                 } else {
                     JOptionPane.showMessageDialog(this, "Database connection failed.");
                 }
@@ -251,13 +254,13 @@ public class UserRegister extends javax.swing.JFrame {
         //</editor-fold>
         //</editor-fold>
         PatientPersister patientPersister = new PatientPersister();
-        UserRegister userRegister = new UserRegister(patientPersister);
+        UserRegister userRegister = new UserRegister();
         userRegister.setVisible(true);
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new UserRegister(patientPersister).setVisible(true);
+                new UserRegister().setVisible(true);
             }
         });
     }

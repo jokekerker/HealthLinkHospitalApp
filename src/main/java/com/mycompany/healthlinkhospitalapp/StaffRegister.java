@@ -216,6 +216,7 @@ public class StaffRegister extends javax.swing.JFrame {
 
             // Optionally, you can display a message to indicate success
             JOptionPane.showMessageDialog(this, "Registration successful.");
+            this.dispose();
         } else {
             JOptionPane.showMessageDialog(this, "Password and Confirm Password do not match.");
         }
@@ -263,7 +264,7 @@ public class StaffRegister extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new UserRegister(patientPersister).setVisible(true);
+                new UserRegister().setVisible(true);
             }
         });
     }

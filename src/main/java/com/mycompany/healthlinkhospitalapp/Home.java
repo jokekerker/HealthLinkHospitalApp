@@ -97,15 +97,16 @@ public class Home extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(198, 198, 198)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(jLabel2)
-                    .addComponent(lbUsername, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(499, Short.MAX_VALUE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lbUsername, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel1)
+                        .addComponent(jLabel2)))
+                .addContainerGap(500, Short.MAX_VALUE))
         );
 
         jMenu3.setText("File");
-        jMenu3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jMenu3.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
 
         patientMenu.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
         patientMenu.setText("Patient Management");
@@ -187,11 +188,13 @@ public class Home extends javax.swing.JFrame {
     private void patientMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_patientMenuActionPerformed
         // TODO add your handling code here:
         new PatientManagement().setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_patientMenuActionPerformed
 
     private void registerMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registerMenuActionPerformed
         // TODO add your handling code here:
         new StaffRegister(patientPersister).setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_registerMenuActionPerformed
 
     private void reportMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_reportMenuActionPerformed
@@ -205,6 +208,7 @@ public class Home extends javax.swing.JFrame {
     private void billMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_billMenuActionPerformed
         // TODO add your handling code here:
         new Billing().setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_billMenuActionPerformed
 
     /**
@@ -237,7 +241,11 @@ public class Home extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
+<<<<<<< HEAD
                 
+=======
+
+>>>>>>> cec82c3 ([commit]-function)
             }
         });
     }

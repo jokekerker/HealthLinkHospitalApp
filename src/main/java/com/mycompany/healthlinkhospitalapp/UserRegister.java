@@ -254,7 +254,6 @@ public class UserRegister extends javax.swing.JFrame {
         //</editor-fold>
         PatientPersister patientPersister = new PatientPersister();
         UserRegister userRegister = new UserRegister(patientPersister);
-        userRegister.btRegisterActionPerformed(evt);
         userRegister.setVisible(true);
 
         /* Create and display the form */

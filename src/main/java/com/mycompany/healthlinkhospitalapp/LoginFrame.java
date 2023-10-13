@@ -3,13 +3,22 @@
 package com.mycompany.healthlinkhospitalapp;
 
 import javax.swing.JOptionPane;
+
 import Presenter.PatientPersister;
+
+import Model.Login;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import javax.cache.*;
 
 
 public class LoginFrame extends javax.swing.JFrame {
     
     private PatientPersister patientPersister;
+    private Login login = new Login();
 
     /** Creates new form LoginFrame */
     public LoginFrame() {
@@ -108,22 +117,26 @@ public class LoginFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
         String username = txtUsername.getText();
         String password = txtPassword.getText();
+
         PatientPersister persister = new PatientPersister();
         
         Map<String, String> userDetails = persister.authenticateUser(username, password);
         if(userDetails != null){
             String role = userDetails.get("role");
             String retrievedUsername = userDetails.get("username");
+
+            this.login.setName("test");
             
-            Home home = new Home(role, retrievedUsername);
+            Home home = new Home(role, retrievedUsername, this.login);
             setVisible(false);
             if("admin".equals(role)){
-                new Home().setVisible(true);
+                home.setVisible(true);
             }else if("staff".equals(role)){
-                new Home().setVisible(true);
+                home.setVisible(true);
             }else{
-                new UserHome().setVisible(true);
-            }
+                home.setVisible(true);
+            }            
+            
         }else
             JOptionPane.showMessageDialog(null, "Incorrect Username or Password");
     }//GEN-LAST:event_loginBtActionPerformed

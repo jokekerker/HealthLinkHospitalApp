@@ -168,16 +168,14 @@ public class PatientPersister implements IPersist {
     }
 
     public void addUsers(LinkedList<User> userList, Connection connection) {
-        PreparedStatement inserUser = null;
         try {
-            insertUser = connection.prepareStatement("INSERT INTO users (id, username, password, name, email, roles) VALUES (?, ?, ?, ?, ?, ?)");
+            insertUser = connection.prepareStatement("INSERT INTO user (username, password, name, email, role) VALUES (?, ?, ?, ?, ?)");
             for (User oneUser : userList) {
-                insertUser.setLong(1, oneUser.getId());
-                insertUser.setString(2, oneUser.getUsername());
-                insertUser.setString(3, oneUser.getPassword());
-                insertUser.setString(4, oneUser.getName());
-                insertUser.setString(5, oneUser.getEmail());
-                insertUser.setString(6, oneUser.getRoles());
+                insertUser.setString(1, oneUser.getUsername());
+                insertUser.setString(2, oneUser.getPassword());
+                insertUser.setString(3, oneUser.getName());
+                insertUser.setString(4, oneUser.getEmail());
+                insertUser.setString(5, oneUser.getRoles());
                 insertUser.executeUpdate();
             }
         } catch (SQLException e) {

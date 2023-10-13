@@ -4,6 +4,14 @@
  */
 package com.mycompany.healthlinkhospitalapp;
 
+import Model.patient.Patient;
+import Presenter.PatientPersister;
+import java.sql.Connection;
+import java.text.SimpleDateFormat;
+import java.util.Collections;
+import java.util.LinkedList;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author nuii
@@ -28,11 +36,9 @@ public class NewPatient extends javax.swing.JFrame {
 
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         txtPatientID = new javax.swing.JTextField();
-        txtFName = new javax.swing.JTextField();
-        txtLName = new javax.swing.JTextField();
+        txtName = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         txtAddress = new javax.swing.JTextArea();
@@ -58,6 +64,8 @@ public class NewPatient extends javax.swing.JFrame {
         txtAllergy = new javax.swing.JTextArea();
         jLabel14 = new javax.swing.JLabel();
         txtRegisterName = new javax.swing.JTextField();
+        jLabel15 = new javax.swing.JLabel();
+        txtEmail = new javax.swing.JTextField();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
@@ -71,19 +79,14 @@ public class NewPatient extends javax.swing.JFrame {
         jLabel1.setText("Patient Information");
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
-        jLabel2.setText("First Name");
-
-        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
-        jLabel3.setText("Last Name");
+        jLabel2.setText("Name");
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
         jLabel4.setText("Patient ID");
 
         txtPatientID.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
 
-        txtFName.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
-
-        txtLName.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
+        txtName.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
         jLabel5.setText("Address");
@@ -107,7 +110,7 @@ public class NewPatient extends javax.swing.JFrame {
         jLabel8.setText("Gender");
 
         listGender.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
-        listGender.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        listGender.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Male", "Female" }));
 
         jLabel9.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
         jLabel9.setText("Date Of Birth");
@@ -131,6 +134,11 @@ public class NewPatient extends javax.swing.JFrame {
 
         btRegister.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
         btRegister.setText("Register");
+        btRegister.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btRegisterActionPerformed(evt);
+            }
+        });
 
         btClear.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
         btClear.setText("Clear");
@@ -160,6 +168,11 @@ public class NewPatient extends javax.swing.JFrame {
         jLabel14.setText("Register By");
 
         txtRegisterName.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
+
+        jLabel15.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
+        jLabel15.setText("Email");
+
+        txtEmail.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
 
         jMenu1.setText("File");
         jMenu1.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
@@ -191,8 +204,12 @@ public class NewPatient extends javax.swing.JFrame {
                         .addComponent(jLabel1)
                         .addContainerGap())
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel15)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 234, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel5)
                                     .addComponent(jLabel6))
@@ -201,23 +218,21 @@ public class NewPatient extends javax.swing.JFrame {
                                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(txtContactPhone, javax.swing.GroupLayout.PREFERRED_SIZE, 234, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(0, 0, Short.MAX_VALUE))
-                            .addGroup(layout.createSequentialGroup()
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel4)
                                     .addComponent(jLabel2)
-                                    .addComponent(jLabel3)
                                     .addComponent(jLabel8)
                                     .addComponent(jLabel9)
                                     .addComponent(jLabel12))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(txtLName, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 236, Short.MAX_VALUE)
                                     .addComponent(txtPatientID)
-                                    .addComponent(txtFName)
                                     .addComponent(listGender, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(dobPicker, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtMedicare, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(layout.createSequentialGroup()
+                                    .addComponent(txtMedicare, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtName, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 234, Short.MAX_VALUE)))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel7)
                                     .addComponent(jLabel11))
@@ -263,21 +278,16 @@ public class NewPatient extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel4)
-                                .addGap(79, 79, 79)
-                                .addComponent(jLabel3))
+                            .addComponent(jLabel4)
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(txtPatientID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jLabel13))
                                 .addGap(24, 24, 24)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(txtFName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel2))
-                                .addGap(20, 20, 20)
-                                .addComponent(txtLName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(22, 22, 22)
+                                    .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel2))))
+                        .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel8)
                             .addComponent(listGender, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -293,7 +303,11 @@ public class NewPatient extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel6)
                             .addComponent(txtContactPhone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(21, 21, 21)
+                        .addGap(23, 23, 23)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel15)
+                            .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(23, 23, 23)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel7)
                             .addComponent(txtEMContact, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -322,6 +336,33 @@ public class NewPatient extends javax.swing.JFrame {
     private void btCloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCloseActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btCloseActionPerformed
+
+    private void btRegisterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btRegisterActionPerformed
+        // TODO add your handling code here:
+        LinkedList<Patient> patients = new LinkedList<>();
+        String name = txtName.getText();
+        String gender = (String) listGender.getSelectedItem();
+        String dateOfBirth = new SimpleDateFormat("yyyy-MM-dd").format(dobPicker.getDate());
+        String address = txtAddress.getText();
+        String contactPhone = txtContactPhone.getText();
+        String email = txtEmail.getText();
+        String emergencyContact = txtEMContact.getText();
+        String emergencyContactPhone = txtEMContactPhone.getText();
+        String bloodGroup = txtBlood.getText();
+        String medicareNo = txtMedicare.getText();
+        String allergies = txtAllergy.getText();
+        String registeredBy = txtRegisterName.getText();
+        
+        Patient patient = new Patient(name, gender, dateOfBirth, address, contactPhone, email, emergencyContact, emergencyContactPhone, bloodGroup, medicareNo, allergies, registeredBy);
+        
+        patients.add(patient);
+        
+        PatientPersister patientPersister = new PatientPersister();
+        Connection connection = patientPersister.getConnection();
+        patientPersister.addPatients(patients, connection);
+        
+        JOptionPane.showMessageDialog(this, "Patient registered successfully.", "Success", JOptionPane.INFORMATION_MESSAGE);
+    }//GEN-LAST:event_btRegisterActionPerformed
 
     /**
      * @param args the command line arguments
@@ -369,8 +410,8 @@ public class NewPatient extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
@@ -392,9 +433,9 @@ public class NewPatient extends javax.swing.JFrame {
     private javax.swing.JTextField txtContactPhone;
     private javax.swing.JTextField txtEMContact;
     private javax.swing.JTextField txtEMContactPhone;
-    private javax.swing.JTextField txtFName;
-    private javax.swing.JTextField txtLName;
+    private javax.swing.JTextField txtEmail;
     private javax.swing.JTextField txtMedicare;
+    private javax.swing.JTextField txtName;
     private javax.swing.JTextField txtPatientID;
     private javax.swing.JTextField txtRegisterName;
     // End of variables declaration//GEN-END:variables

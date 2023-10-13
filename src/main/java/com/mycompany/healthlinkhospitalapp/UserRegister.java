@@ -16,7 +16,7 @@ import java.sql.Connection;
  * @author nuii
  */
 public class UserRegister extends javax.swing.JFrame {
-    
+
     private PatientPersister patientPersister;
 
     /**
@@ -26,8 +26,6 @@ public class UserRegister extends javax.swing.JFrame {
         initComponents();
         this.patientPersister = patientPersister;
     }
-    
-
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -185,28 +183,28 @@ public class UserRegister extends javax.swing.JFrame {
 
         // Check if the password matches the confirm password
         if (Arrays.equals(password, confirmPassword)) {
-            try{
-            // Create a User object with the provided data
-            User user = new User();
-            user.setName(name);
-            user.setUsername(username);
-            user.setPassword(new String(password));
-            user.setEmail(email);
-            user.setRoles("user"); //default role
+            try {
+                // Create a User object with the provided data
+                User user = new User();
+                user.setName(name);
+                user.setUsername(username);
+                user.setPassword(new String(password));
+                user.setEmail(email);
+                user.setRoles("user"); //default role
 
-            // Create a list of users and add the user to the list
-            LinkedList<User> userList = new LinkedList<>();
-            userList.add(user);
+                // Create a list of users and add the user to the list
+                LinkedList<User> userList = new LinkedList<>();
+                userList.add(user);
 
-            // Call the addUsers method to insert the user into the database
-            Connection connection = patientPersister.getConnection();
-            if(connection!=null){
-                patientPersister.addUsers(userList, connection);
-                JOptionPane.showMessageDialog(this, "Registration successful.");
-            }else {
-                JOptionPane.showMessageDialog(this, "Database connection failed.");
-            }
-            }catch(Exception ex){
+                // Call the addUsers method to insert the user into the database
+                Connection connection = patientPersister.getConnection();
+                if (connection != null) {
+                    patientPersister.addUsers(userList, connection);
+                    JOptionPane.showMessageDialog(this, "Registration successful.");
+                } else {
+                    JOptionPane.showMessageDialog(this, "Database connection failed.");
+                }
+            } catch (Exception ex) {
                 ex.printStackTrace();
                 JOptionPane.showMessageDialog(this, "An error occurred: " + ex.getMessage());
             }

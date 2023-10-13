@@ -4,6 +4,7 @@
  */
 package com.mycompany.healthlinkhospitalapp;
 
+import Model.Login;
 import Presenter.PatientPersister;
 import java.util.Map;
 import javax.swing.JLabel;
@@ -27,8 +28,7 @@ public class Home extends javax.swing.JFrame {
     public Home(String role, String username, Login login) {
         this.login = login;
         initComponents();
-        displayUsername();
-        
+        displayUsername(username);
 
     }
 
@@ -242,9 +242,8 @@ public class Home extends javax.swing.JFrame {
         });
     }
 
-    public void displayUsername() {
-
-        lbUsername.setText(this.login.getName());
+    public void displayUsername(String username) {
+        lbUsername.setText(username);
 
     }
 

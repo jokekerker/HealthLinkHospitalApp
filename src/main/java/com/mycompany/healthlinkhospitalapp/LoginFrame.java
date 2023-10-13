@@ -2,6 +2,7 @@
 
 package com.mycompany.healthlinkhospitalapp;
 
+import Model.Login;
 import javax.swing.JOptionPane;
 
 import Presenter.PatientPersister;
@@ -124,10 +125,8 @@ public class LoginFrame extends javax.swing.JFrame {
         if(userDetails != null){
             String role = userDetails.get("role");
             String retrievedUsername = userDetails.get("username");
-
-            this.login.setName("test");
             
-            Home home = new Home(role, retrievedUsername, this.login);
+            Home home = new Home(role, retrievedUsername);
             setVisible(false);
             if("admin".equals(role)){
                 home.setVisible(true);

@@ -11,24 +11,36 @@ public class Patient {
     private String gender;
     private String dateOfBirth;
     private String address;
-    private String phoneNumber;
+    private String contactPhone;
     private String email;
+    private String emergencyContact;
+    private String emergencyContactaPhone;
+    private String bloodGroup;
+    private String medicareNo;
+    private String allergies;
+    private String registeredBy;
     //private List<MedicalRecord> medicalRecords; // A Patient can have multiple medical records
 
     // Constructors, getters, and setters
     public Patient() {
     }
 
-    public Patient(Long id, String name, String gender, String dateOfBirth, String address, String phoneNumber, String email) {
-        this.id = id;
+    public Patient(String name, String gender, String dateOfBirth, String address, String contactPhone, String email, String emergencyContact, String emergencyContactaPhone, String bloodGroup, String medicareNo, String allergies, String registeredBy) {
         this.name = name;
         this.gender = gender;
         this.dateOfBirth = dateOfBirth;
         this.address = address;
-        this.phoneNumber = phoneNumber;
+        this.contactPhone = contactPhone;
         this.email = email;
-        //this.medicalRecords = medicalRecords;
+        this.emergencyContact = emergencyContact;
+        this.emergencyContactaPhone = emergencyContactaPhone;
+        this.bloodGroup = bloodGroup;
+        this.medicareNo = medicareNo;
+        this.allergies = allergies;
+        this.registeredBy = registeredBy;
     }
+
+
 
     public Long getId() {
         return id;
@@ -36,6 +48,54 @@ public class Patient {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getEmergencyContact() {
+        return emergencyContact;
+    }
+
+    public void setEmergencyContact(String emergencyContact) {
+        this.emergencyContact = emergencyContact;
+    }
+
+    public String getEmergencyContactaPhone() {
+        return emergencyContactaPhone;
+    }
+
+    public void setEmergencyContactaPhone(String emergencyContactaPhone) {
+        this.emergencyContactaPhone = emergencyContactaPhone;
+    }
+
+    public String getBloodGroup() {
+        return bloodGroup;
+    }
+
+    public void setBloodGroup(String bloodGroup) {
+        this.bloodGroup = bloodGroup;
+    }
+
+    public String getMedicareNo() {
+        return medicareNo;
+    }
+
+    public void setMedicareNo(String medicareNo) {
+        this.medicareNo = medicareNo;
+    }
+
+    public String getAllergies() {
+        return allergies;
+    }
+
+    public void setAllergies(String allergies) {
+        this.allergies = allergies;
+    }
+
+    public String getRegisteredBy() {
+        return registeredBy;
+    }
+
+    public void setRegisteredBy(String registeredBy) {
+        this.registeredBy = registeredBy;
     }
 
     public String getName() {
@@ -70,12 +130,12 @@ public class Patient {
         this.address = address;
     }
 
-    public String getPhoneNumber() {
-        return phoneNumber;
+    public String getContactPhone() {
+        return contactPhone;
     }
 
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
+    public void setContactPhone(String contactPhone) {
+        this.contactPhone = contactPhone;
     }
 
     public String getEmail() {

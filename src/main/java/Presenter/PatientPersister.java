@@ -172,6 +172,7 @@ public class PatientPersister implements IPersist {
     
     public void addUsers(LinkedList<User> userList, Connection connection) {
         try {
+<<<<<<< HEAD
             insertUser = connection.prepareStatement("INSERT INTO users (id, username, password, name, email, roles) VALUES (?, ?, ?, ?, ?, ?)");
             for (User oneUser : userList) {
                 insertUser.setLong(1, oneUser.getId());
@@ -180,6 +181,15 @@ public class PatientPersister implements IPersist {
                 insertUser.setString(4, oneUser.getName());
                 insertUser.setString(5, oneUser.getEmail());
                 insertUser.setString(6, oneUser.getRoles());
+=======
+            insertUser = connection.prepareStatement("INSERT INTO user (username, password, name, email, role) VALUES (?, ?, ?, ?, ?)");
+            for (User oneUser : userList) {
+                insertUser.setString(1, oneUser.getUsername());
+                insertUser.setString(2, oneUser.getPassword());
+                insertUser.setString(3, oneUser.getName());
+                insertUser.setString(4, oneUser.getEmail());
+                insertUser.setString(5, oneUser.getRoles());
+>>>>>>> f2ade34 ([commit]-Login displayname)
                 insertUser.executeUpdate();
             }
         } catch (SQLException e) {
@@ -194,12 +204,18 @@ public class PatientPersister implements IPersist {
         try {
             insertPatient = connection.prepareStatement("INSERT INTO patient (name, gender, dateofbirth, address, phonenumber, email) VALUES (?, ?, ?, ?, ?, ?)");
             for (Patient onePatient : patientList) {
-                insertPatient.setString(2, onePatient.getName());
-                insertPatient.setString(3, onePatient.getGender());
-                insertPatient.setString(4, onePatient.getDateOfBirth());
-                insertPatient.setString(5, onePatient.getAddress());
-                insertPatient.setString(6, onePatient.getContactPhone());
-                insertPatient.setString(7, onePatient.getEmail());
+                insertPatient.setString(1, onePatient.getName());
+                insertPatient.setString(2, onePatient.getGender());
+                insertPatient.setString(3, onePatient.getDateOfBirth());
+                insertPatient.setString(4, onePatient.getAddress());
+                insertPatient.setString(5, onePatient.getContactPhone());
+                insertPatient.setString(6, onePatient.getEmail());
+                insertPatient.setString(7, onePatient.getEmergencyContact());
+                insertPatient.setString(8, onePatient.getEmergencyContactaPhone());
+                insertPatient.setString(9, onePatient.getBloodGroup());
+                insertPatient.setString(10, onePatient.getMedicareNo());
+                insertPatient.setString(11, onePatient.getAllergies());
+                insertPatient.setString(12, onePatient.getRegisteredBy());
                 insertPatient.executeUpdate();
             }
         } catch (SQLException e) {

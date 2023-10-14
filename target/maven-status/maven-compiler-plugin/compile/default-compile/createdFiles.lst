@@ -1,7 +1,6 @@
 com/mycompany/healthlinkhospitalapp/PatientManagement$4.class
 com/mycompany/healthlinkhospitalapp/LoginFrame.class
 com/mycompany/healthlinkhospitalapp/UserRegister.class
-Presenter/PatientPersister.class
 com/mycompany/healthlinkhospitalapp/Home$6.class
 com/mycompany/healthlinkhospitalapp/Billing$3.class
 com/mycompany/healthlinkhospitalapp/LoginFrame$5.class
@@ -18,7 +17,6 @@ com/mycompany/healthlinkhospitalapp/Home$5.class
 com/mycompany/healthlinkhospitalapp/PatientManagement$5.class
 com/mycompany/healthlinkhospitalapp/NewAppointment.class
 Model/Login.class
-Model/HealthcareProvider.class
 com/mycompany/healthlinkhospitalapp/Billing$2.class
 com/mycompany/healthlinkhospitalapp/PatientManagement$8.class
 com/mycompany/healthlinkhospitalapp/Home$2.class
@@ -40,6 +38,7 @@ com/mycompany/healthlinkhospitalapp/UserEHRsView.class
 Model/AppointmentStatus.class
 com/mycompany/healthlinkhospitalapp/Home.class
 com/mycompany/healthlinkhospitalapp/DiagnosisInformation.class
+com/mycompany/healthlinkhospitalapp/UserAppointmentView$4.class
 com/mycompany/healthlinkhospitalapp/UserHome$1.class
 com/mycompany/healthlinkhospitalapp/UserRegister$1.class
 com/mycompany/healthlinkhospitalapp/PatientManagement$2.class
@@ -55,7 +54,6 @@ com/mycompany/healthlinkhospitalapp/LoginFrame$1.class
 com/mycompany/healthlinkhospitalapp/NewPatient$2.class
 com/mycompany/healthlinkhospitalapp/UserRegister$2.class
 Presenter/PatientPersenter.class
-Model/MedicalRecord.class
 com/mycompany/healthlinkhospitalapp/StaffRegister$2.class
 com/mycompany/healthlinkhospitalapp/StaffRegister.class
 com/mycompany/healthlinkhospitalapp/UserAppointmentView$1.class

@@ -1,11 +1,12 @@
-
 package com.mycompany.healthlinkhospitalapp;
 
+import Model.Login;
 import Model.User;
 import Presenter.Persister;
 import java.sql.Connection;
 import java.util.Arrays;
 import java.util.LinkedList;
+import java.util.Map;
 import javax.swing.JOptionPane;
 
 /**
@@ -15,6 +16,7 @@ import javax.swing.JOptionPane;
 public class StaffRegister extends javax.swing.JFrame {
 
     private Persister patientPersister;
+    private Login login;
 
     /**
      * Creates new form Register
@@ -49,8 +51,12 @@ public class StaffRegister extends javax.swing.JFrame {
         jLabel8 = new javax.swing.JLabel();
         roleBox = new javax.swing.JComboBox<>();
         jMenuBar1 = new javax.swing.JMenuBar();
-        jMenu1 = new javax.swing.JMenu();
+        patientMenu = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
+        appointMenu = new javax.swing.JMenuItem();
+        billMenu = new javax.swing.JMenuItem();
+        reportMenu = new javax.swing.JMenuItem();
+        exitMenu = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -58,7 +64,7 @@ public class StaffRegister extends javax.swing.JFrame {
         jLabel1.setText("Register");
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel2.setText("First Name");
+        jLabel2.setText("Name");
 
         txtName.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
 
@@ -95,12 +101,35 @@ public class StaffRegister extends javax.swing.JFrame {
 
         roleBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "admin", "staff", "user" }));
 
-        jMenu1.setText("File");
+        patientMenu.setText("File");
+        patientMenu.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
 
-        jMenuItem1.setText("Exit");
-        jMenu1.add(jMenuItem1);
+        jMenuItem1.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
+        jMenuItem1.setText("Patient Management");
+        patientMenu.add(jMenuItem1);
 
-        jMenuBar1.add(jMenu1);
+        appointMenu.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
+        appointMenu.setText("Appointment");
+        appointMenu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                appointMenuActionPerformed(evt);
+            }
+        });
+        patientMenu.add(appointMenu);
+
+        billMenu.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
+        billMenu.setText("Billing & Invoicing");
+        patientMenu.add(billMenu);
+
+        reportMenu.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
+        reportMenu.setText("Report");
+        patientMenu.add(reportMenu);
+
+        exitMenu.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
+        exitMenu.setText("Exit");
+        patientMenu.add(exitMenu);
+
+        jMenuBar1.add(patientMenu);
 
         setJMenuBar(jMenuBar1);
 
@@ -168,7 +197,7 @@ public class StaffRegister extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btRegister)
                     .addComponent(btClear))
-                .addContainerGap(222, Short.MAX_VALUE))
+                .addContainerGap(223, Short.MAX_VALUE))
         );
 
         pack();
@@ -214,12 +243,18 @@ public class StaffRegister extends javax.swing.JFrame {
             // Optionally, you can display a message to indicate success
             JOptionPane.showMessageDialog(this, "Registration successful.");
             this.dispose();
+
+
         } else {
             JOptionPane.showMessageDialog(this, "Password and Confirm Password do not match.");
         }
 
 
     }//GEN-LAST:event_btRegisterActionPerformed
+
+    private void appointMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_appointMenuActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_appointMenuActionPerformed
 
     /**
      * @param args the command line arguments
@@ -267,8 +302,11 @@ public class StaffRegister extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenuItem appointMenu;
+    private javax.swing.JMenuItem billMenu;
     private javax.swing.JButton btClear;
     private javax.swing.JButton btRegister;
+    private javax.swing.JMenuItem exitMenu;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;
@@ -276,9 +314,10 @@ public class StaffRegister extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
-    private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenu patientMenu;
+    private javax.swing.JMenuItem reportMenu;
     private javax.swing.JComboBox<String> roleBox;
     private javax.swing.JTextField txtEmail;
     private javax.swing.JTextField txtName;

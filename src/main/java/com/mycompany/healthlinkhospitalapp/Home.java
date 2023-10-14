@@ -185,21 +185,20 @@ public class Home extends javax.swing.JFrame {
         // TODO add your handling code here:
         PatientManagement patientManagement = new PatientManagement();
         patientManagement.setVisible(true);
-        this.dispose();
     }//GEN-LAST:event_patientMenuActionPerformed
 
     private void registerMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registerMenuActionPerformed
         // TODO add your handling code here:
         StaffRegister staffRegister = new StaffRegister();
         staffRegister.setVisible(true);
-        this.dispose();
+        
     }//GEN-LAST:event_registerMenuActionPerformed
 
     private void reportMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_reportMenuActionPerformed
         // TODO add your handling code here:
         Report report = new Report();
         report.setVisible(true);
-        this.dispose();
+        
     }//GEN-LAST:event_reportMenuActionPerformed
 
     private void logoutMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutMenuActionPerformed
@@ -210,7 +209,7 @@ public class Home extends javax.swing.JFrame {
         // TODO add your handling code here:
         Billing billing = new Billing();
         billing.setVisible(true);
-        this.dispose();
+        
     }//GEN-LAST:event_billMenuActionPerformed
 
     /**

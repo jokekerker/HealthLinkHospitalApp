@@ -1,5 +1,8 @@
 package Presenter;
 
+import Model.Appointment;
+import Model.AppointmentStatus;
+import Model.Billing;
 import Model.User;
 import Model.patient.Patient;
 import java.sql.Connection;
@@ -7,10 +10,13 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 public class Persister implements IPersist {
 
@@ -28,6 +34,8 @@ public class Persister implements IPersist {
     private PreparedStatement createTableAppointment;
     private PreparedStatement insertUser;
     private PreparedStatement insertPatient;
+    private PreparedStatement insertAppointment;
+    private PreparedStatement insertBilling;
     private PreparedStatement selectPatient;
 
     private List<User> userList;
@@ -80,6 +88,12 @@ public class Persister implements IPersist {
                     + "address varchar(80) not null,\n"
                     + "contactphone varchar(20) not null,\n"
                     + "email varchar(50) not null,\n"
+                    + "emergencycontact varchar(100) not null,\n"
+                    + "emergencycontactphone varchar(50) not null,\n"
+                    + "bloodgroup varchar(50) not null,\n"
+                    + "medicareno varchar(50) not null,\n"
+                    + "allergies varchar(50) not null,\n"
+                    + "registeredby varchar(100) not null,\n"
                     + "primary key (patientid))");
             createTableDiagnosis = dbConnection.prepareStatement(""
                     + "create table if not exists diagnosis(\n"
@@ -102,13 +116,13 @@ public class Persister implements IPersist {
             createTableAppointment = dbConnection.prepareStatement(""
                     + "create table if not exists appointment(\n"
                     + "appointmentid int not null auto_increment,\n"
-                    + "patientid int not null auto_increment, \n"
+                    + "patientid int not null, \n"
                     + "name varchar(50) not null, \n"
                     + "date varchar(50) not null, \n"
                     + "symptom varchar(200) not null, \n"
                     + "gpname varchar(50) not null, \n"
                     + "status varchar(20) not null, \n"
-                    + "primary key (patientid))");
+                    + "primary key (appointmentid))");
             createTableUser.executeUpdate();
             createTablePatient.executeUpdate();
             createTableDiagnosis.executeUpdate();
@@ -204,7 +218,7 @@ public class Persister implements IPersist {
 
     public void addPatients(LinkedList<Patient> patientList, Connection connection) {
         try {
-            insertPatient = connection.prepareStatement("INSERT INTO patient (name, gender, dateofbirth, address, phonenumber, email) VALUES (?, ?, ?, ?, ?, ?)");
+            insertPatient = connection.prepareStatement("INSERT INTO patient (name, gender, dateofbirth, address, contactphone, email, emergencycontact, emergencycontactphone, bloodgroup, medicareno, allergies, registeredby) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
             for (Patient onePatient : patientList) {
                 insertPatient.setString(1, onePatient.getName());
                 insertPatient.setString(2, onePatient.getGender());
@@ -259,4 +273,125 @@ public class Persister implements IPersist {
         }
         return patientList;
     }
+
+    public boolean addAppointment(Appointment appointment, Connection connection) {
+        try {
+            PreparedStatement insertAppointment = connection.prepareStatement("INSERT INTO appointment (patientid, name, date, symptom, gpname, status) VALUES (?, ?, ?, ?, ?, ?)");
+
+            // Set the values in the PreparedStatement
+            insertAppointment.setLong(1, appointment.getPatientId());
+            insertAppointment.setString(2, appointment.getName());
+            insertAppointment.setString(3, appointment.getAppointmentDate());
+            insertAppointment.setString(4, appointment.getSymptom());
+            insertAppointment.setString(5, appointment.getGpName());
+            insertAppointment.setString(6, appointment.getStatus().toString());
+
+            // Execute the SQL query to insert the appointment
+            int rowsAffected = insertAppointment.executeUpdate();
+
+            // Check if the insertion was successful
+            if (rowsAffected > 0) {
+                return true; // Insertion was successful
+            }
+        } catch (SQLException e) {
+            System.out.println("Connection Failed! Check output console");
+            System.out.println("SQLException: " + e.getMessage());
+            System.out.println("SQLState: " + e.getSQLState());
+            e.printStackTrace();
+        }
+
+        return false;
+    }
+
+    public List<Appointment> selectAppointments(String username) {
+        List<Appointment> appointments = new ArrayList<>();
+        Connection connection = null;
+
+        try {
+            connection = getConnection();
+
+            String sql = "SELECT * FROM appointment WHERE name = ?";
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setString(1, username);
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()) {
+                Appointment appointment = new Appointment();
+                appointment.setAppointmentDate(resultSet.getString("date"));
+                appointment.setSymptom(resultSet.getString("symptom"));
+                appointment.setGpName(resultSet.getString("gpname"));
+                String statusString = resultSet.getString("status");
+                AppointmentStatus status;
+                if ("Schedule".equals(statusString)){
+                    status = AppointmentStatus.Schedule;
+                }else if("Completed".equals(statusString)){
+                    status = AppointmentStatus.Completed;
+                }else if("Canceled".equals(statusString)){
+                    status = AppointmentStatus.Canceled;
+                }else{
+                    status = null;
+                }
+                appointment.setStatus(status);
+                
+                appointments.add(appointment);
+            }
+
+            resultSet.close();
+            preparedStatement.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            // Handle any exceptions
+        } finally {
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
+        return appointments;
+    }
+
+    public void addBilling(LinkedList<Billing> billingList, Connection connection) {
+        try {
+            insertBilling = connection.prepareStatement("INSERT INTO billing (patientid, name, date, detail, unit, amount, total) VALUES (?, ?, ?, ?, ?, ?, ?)");
+            for (Billing oneBilling : billingList) {
+                insertBilling.setLong(1, oneBilling.getPatientId());
+                insertBilling.setString(2, oneBilling.getName());
+                insertBilling.setString(3, oneBilling.getBillDate());
+                insertBilling.setString(4, oneBilling.getDetail());
+                insertBilling.setInt(5, oneBilling.getUnit());
+                insertBilling.setInt(6, oneBilling.getAmount());
+                insertBilling.setInt(7, oneBilling.getTotal());
+                insertBilling.executeUpdate();
+            }
+        } catch (SQLException e) {
+            System.out.println("Connection Failed! Check output console");
+            System.out.println("SQLException: " + e.getMessage());
+            System.out.println("SQLState: " + e.getSQLState());
+            e.printStackTrace();
+        }
+    }
+
+    public Patient getPatientByID(String patientID, Connection connection) throws SQLException {
+        String query = "SELECT * FROM Patient WHERE PatientID = ?";
+        PreparedStatement preparedStatement = connection.prepareStatement(query);
+        preparedStatement.setString(1, patientID);
+
+        ResultSet resultSet = preparedStatement.executeQuery();
+
+        if (resultSet.next()) {
+            Patient patient = new Patient();
+            patient.setId(resultSet.getLong("PatientID"));
+            patient.setName(resultSet.getString("Name"));
+            // Set other patient properties as well
+
+            return patient;
+        } else {
+            return null; // Patient not found
+        }
+    }
+
 }

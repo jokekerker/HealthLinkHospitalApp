@@ -1,8 +1,21 @@
-
 package com.mycompany.healthlinkhospitalapp;
 
+import Model.Appointment;
+import Model.AppointmentStatus;
+import Model.patient.Patient;
+import Presenter.Persister;
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 public class NewAppointment extends javax.swing.JFrame {
+    
+    private AppointmentStatus AppointmentStatus;
+    
 
     /**
      * Creates new form NewAppointment
@@ -35,6 +48,8 @@ public class NewAppointment extends javax.swing.JFrame {
         btSave = new javax.swing.JButton();
         btClear = new javax.swing.JButton();
         btClose = new javax.swing.JButton();
+        jLabel7 = new javax.swing.JLabel();
+        cbStatus = new javax.swing.JComboBox<>();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         patientManagementMenu = new javax.swing.JMenuItem();
@@ -102,6 +117,11 @@ public class NewAppointment extends javax.swing.JFrame {
                 btCloseActionPerformed(evt);
             }
         });
+
+        jLabel7.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
+        jLabel7.setText("Status");
+
+        cbStatus.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Schedule", "Completed", "Canceled" }));
 
         jMenu1.setText("File");
         jMenu1.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
@@ -173,27 +193,30 @@ public class NewAppointment extends javax.swing.JFrame {
                                 .addComponent(jLabel6)
                                 .addGap(31, 31, 31)
                                 .addComponent(txtSymptom))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel4)
-                                .addGap(31, 31, 31)
-                                .addComponent(txtGPName))
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel2)
                                     .addComponent(jLabel3))
+                                .addGap(28, 28, 28)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(dateAppointment, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtPatientName, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(txtPatientID, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel4)
+                                    .addComponent(jLabel7))
+                                .addGap(31, 31, 31)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(layout.createSequentialGroup()
-                                        .addGap(28, 28, 28)
-                                        .addComponent(dateAppointment, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(28, 28, 28)
-                                        .addComponent(txtPatientName, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                            .addComponent(txtPatientID, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(cbStatus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(0, 0, Short.MAX_VALUE))
+                                    .addComponent(txtGPName))))
                         .addGap(43, 43, 43)
                         .addComponent(btSearch)
                         .addContainerGap(850, Short.MAX_VALUE))))
             .addGroup(layout.createSequentialGroup()
-                .addGap(225, 225, 225)
+                .addGap(223, 223, 223)
                 .addComponent(btSave)
                 .addGap(18, 18, 18)
                 .addComponent(btClear)
@@ -227,12 +250,16 @@ public class NewAppointment extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel4)
                     .addComponent(txtGPName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(72, 72, 72)
+                .addGap(28, 28, 28)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel7)
+                    .addComponent(cbStatus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(39, 39, 39)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btSave)
                     .addComponent(btClear)
                     .addComponent(btClose))
-                .addContainerGap(262, Short.MAX_VALUE))
+                .addContainerGap(244, Short.MAX_VALUE))
         );
 
         pack();
@@ -240,14 +267,113 @@ public class NewAppointment extends javax.swing.JFrame {
 
     private void patientManagementMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_patientManagementMenuActionPerformed
         // TODO add your handling code here:
+        PatientManagement patientManagement = new PatientManagement();
+        patientManagement.setVisible(true);
     }//GEN-LAST:event_patientManagementMenuActionPerformed
 
     private void btSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSearchActionPerformed
         // TODO add your handling code here:
+        String patientID = txtPatientID.getText();
+        if (patientID.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Please enter a Patient ID.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        Persister patientPersister = new Persister();
+        Connection connection = null;
+
+        connection = patientPersister.getConnection();
+        if (connection != null) {
+            // Fetch patient details by ID
+            Patient patient = null;
+            try {
+                patient = patientPersister.getPatientByID(patientID, connection);
+            } catch (SQLException ex) {
+                Logger.getLogger(NewAppointment.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
+            if (patient != null) {
+                // Populate the form fields with patient information
+                txtPatientName.setText(patient.getName());
+                // Set other fields here as well
+                
+                JOptionPane.showMessageDialog(this, "Patient found.", "Success", JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                JOptionPane.showMessageDialog(this, "Patient not found.", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Failed to establish a database connection.", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+        if (connection != null) {
+            try {
+                connection.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
     }//GEN-LAST:event_btSearchActionPerformed
 
     private void btSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSaveActionPerformed
         // TODO add your handling code here:
+        if (txtPatientName == null) {
+            JOptionPane.showMessageDialog(this, "Please search for a patient first.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        // Gather appointment information from the form
+        String PatientId = txtPatientID.getText();
+        Long patientId = Long.parseLong(PatientId);
+        String name = txtPatientName.getText();
+        String gpName = txtGPName.getText();
+        String symptom = txtSymptom.getText();
+        String appointmentDate = new SimpleDateFormat("yyyy-MM-dd").format(dateAppointment.getDate());
+        String status = (String) cbStatus.getSelectedItem();
+        AppointmentStatus appointmentStatus;
+        if("Schedule".equals(status)){
+            appointmentStatus = AppointmentStatus.Schedule;
+        }else if("Completed".equals(status)){
+            appointmentStatus = AppointmentStatus.Completed;
+        }else if("Canceled".equals(status)){
+            appointmentStatus = AppointmentStatus.Canceled;
+        }else{
+            return;
+        }
+
+        // Check if any required fields are empty
+        if (gpName.isEmpty() || symptom.isEmpty() || appointmentDate == null) {
+            JOptionPane.showMessageDialog(this, "Please fill in all required fields.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        // Create an Appointment object with the gathered information
+        
+        Appointment newAppointment = new Appointment();
+        newAppointment.setPatientId(patientId);
+        newAppointment.setName(name);
+        newAppointment.setGpName(gpName);
+        newAppointment.setSymptom(symptom);
+        newAppointment.setAppointmentDate(appointmentDate);
+        newAppointment.setStatus(AppointmentStatus.valueOf(cbStatus.getSelectedItem().toString()));
+
+        // Save the appointment in the database
+        Persister persister = new Persister();
+        try {
+            Connection connection = persister.getConnection();
+            if (connection != null) {
+                if (persister.addAppointment(newAppointment, connection)) {
+                    JOptionPane.showMessageDialog(this, "Appointment saved successfully.", "Success", JOptionPane.INFORMATION_MESSAGE);
+                    this.dispose();
+                } else {
+                    JOptionPane.showMessageDialog(this, "Failed to save the appointment.", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+                connection.close();
+            } else {
+                JOptionPane.showMessageDialog(this, "Failed to establish a database connection.", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, "An error occurred while saving the appointment.", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    
     }//GEN-LAST:event_btSaveActionPerformed
 
     private void btClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btClearActionPerformed
@@ -315,6 +441,7 @@ public class NewAppointment extends javax.swing.JFrame {
     private javax.swing.JButton btClose;
     private javax.swing.JButton btSave;
     private javax.swing.JButton btSearch;
+    private javax.swing.JComboBox<String> cbStatus;
     private com.toedter.calendar.JDateChooser dateAppointment;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -322,6 +449,7 @@ public class NewAppointment extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem logoutMenu;

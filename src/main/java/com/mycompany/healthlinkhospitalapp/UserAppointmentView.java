@@ -1,14 +1,23 @@
-
 package com.mycompany.healthlinkhospitalapp;
 
+import Model.Appointment;
+import Model.Login;
+import Presenter.Persister;
+import java.util.List;
+import javax.swing.table.DefaultTableModel;
 
 public class UserAppointmentView extends javax.swing.JFrame {
+
+    private String name;
+    private Login login = new Login();
 
     /**
      * Creates new form UserAppointmentView
      */
-    public UserAppointmentView() {
+    public UserAppointmentView(String name) {
+        this.name = name;
         initComponents();
+        
     }
 
     /**
@@ -22,8 +31,9 @@ public class UserAppointmentView extends javax.swing.JFrame {
 
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        appointmentTb = new javax.swing.JTable();
         btClose = new javax.swing.JButton();
+        btSearch = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         healthRECMenu = new javax.swing.JMenuItem();
@@ -34,18 +44,26 @@ public class UserAppointmentView extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 36)); // NOI18N
         jLabel1.setText("Appointment");
 
-        jTable1.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        appointmentTb.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
+        appointmentTb.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null}
+                {null, null, null, null}
             },
             new String [] {
-                "Date", "Symptom", "GP Name"
+                "Date", "Symptom", "GP Name", "Status"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(appointmentTb);
 
         btClose.setText("Close");
+
+        btSearch.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
+        btSearch.setText("Search");
+        btSearch.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btSearchActionPerformed(evt);
+            }
+        });
 
         jMenu1.setText("File");
         jMenu1.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
@@ -87,6 +105,8 @@ public class UserAppointmentView extends javax.swing.JFrame {
                 .addContainerGap(36, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(btSearch)
+                .addGap(28, 28, 28)
                 .addComponent(btClose)
                 .addGap(180, 180, 180))
         );
@@ -98,7 +118,9 @@ public class UserAppointmentView extends javax.swing.JFrame {
                 .addGap(59, 59, 59)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(221, 221, 221)
-                .addComponent(btClose)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btClose)
+                    .addComponent(btSearch))
                 .addContainerGap(260, Short.MAX_VALUE))
         );
 
@@ -112,6 +134,11 @@ public class UserAppointmentView extends javax.swing.JFrame {
     private void healthRECMenu1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_healthRECMenu1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_healthRECMenu1ActionPerformed
+
+    private void btSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSearchActionPerformed
+        // TODO add your handling code here:
+        displayAppointments();
+    }//GEN-LAST:event_btSearchActionPerformed
 
     /**
      * @param args the command line arguments
@@ -143,19 +170,42 @@ public class UserAppointmentView extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new UserAppointmentView().setVisible(true);
+
             }
         });
     }
 
+    private void displayAppointments() {
+        String username = login.getName(); // Get the username from the logged-in user
+
+        // Use the Persister class to select appointments
+        Persister persister = new Persister();
+        List<Appointment> appointments = persister.selectAppointments(username);
+        
+        DefaultTableModel model = (DefaultTableModel) appointmentTb.getModel();
+        
+        model.setRowCount(0);
+        
+        for (Appointment appointment : appointments){
+            String[] rowData = {
+                appointment.getAppointmentDate(),
+                appointment.getSymptom(),
+                appointment.getGpName(),
+                appointment.getStatus().toString()
+            };
+            model.addRow(rowData);
+        }
+    }
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTable appointmentTb;
     private javax.swing.JButton btClose;
+    private javax.swing.JButton btSearch;
     private javax.swing.JMenuItem healthRECMenu;
     private javax.swing.JMenuItem healthRECMenu1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     // End of variables declaration//GEN-END:variables
 }

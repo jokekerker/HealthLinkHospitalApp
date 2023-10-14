@@ -1,9 +1,9 @@
-
 package com.mycompany.healthlinkhospitalapp;
 
 import Model.patient.Patient;
 import Presenter.Persister;
 import java.sql.Connection;
+import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.LinkedList;
 import javax.swing.JOptionPane;
@@ -348,17 +348,32 @@ public class NewPatient extends javax.swing.JFrame {
         String medicareNo = txtMedicare.getText();
         String allergies = txtAllergy.getText();
         String registeredBy = txtRegisterName.getText();
-        
+
         Patient patient = new Patient(name, gender, dateOfBirth, address, contactPhone, email, emergencyContact, emergencyContactPhone, bloodGroup, medicareNo, allergies, registeredBy);
-        
+
         patients.add(patient);
-        
+
         Persister patientPersister = new Persister();
-        Connection connection = patientPersister.getConnection();
-        patientPersister.addPatients(patients, connection);
-        
-        JOptionPane.showMessageDialog(this, "Patient registered successfully.", "Success", JOptionPane.INFORMATION_MESSAGE);
+        Connection connection = null;
+        connection = patientPersister.getConnection();
+        if (connection != null) {
+            patientPersister.addPatients(patients, connection);
+            JOptionPane.showMessageDialog(this, "Patient registered successfully.", "Success", JOptionPane.INFORMATION_MESSAGE);
+            this.dispose();
+        } else {
+            JOptionPane.showMessageDialog(this, "Failed to establish a database connection.", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+        if (connection != null) {
+            try {
+                connection.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    
     }//GEN-LAST:event_btRegisterActionPerformed
+        
+    
 
     /**
      * @param args the command line arguments

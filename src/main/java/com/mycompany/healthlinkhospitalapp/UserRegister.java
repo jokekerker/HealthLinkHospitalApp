@@ -199,7 +199,7 @@ public class UserRegister extends javax.swing.JFrame {
                 // Call the addUsers method to insert the user into the database
                 Connection connection = patientPersister.getConnection();
                 if (connection != null) {
-                    Integer userId = patientPersister.addUsers(userList, connection);
+                    Long userId = patientPersister.addUsers(userList, connection);
                     patientPersister.addPatients(patientList, userId, connection);
                     JOptionPane.showMessageDialog(this, "Registration successful.");
                     this.dispose();

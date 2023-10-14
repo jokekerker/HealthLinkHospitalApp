@@ -199,19 +199,29 @@ public class Persister implements IPersist {
         }
     }
 
-    public Integer addUsers(LinkedList<User> userList, Connection connection) {
-        Integer affectedRows = null;
+    public Long addUsers(LinkedList<User> userList, Connection connection) {
+        Long user_id = null;
         try {
-            insertUser = connection.prepareStatement("INSERT INTO user (username, password, name, email, role) VALUES (?, ?, ?, ?, ?)");
+            insertUser = connection.prepareStatement("INSERT INTO user (username, password, name, email, role) VALUES (?, ?, ?, ?, ?)", PreparedStatement.RETURN_GENERATED_KEYS);
             for (User oneUser : userList) {
                 insertUser.setString(1, oneUser.getUsername());
                 insertUser.setString(2, oneUser.getPassword());
                 insertUser.setString(3, oneUser.getName());
                 insertUser.setString(4, oneUser.getEmail());
                 insertUser.setString(5, oneUser.getRoles());
-                affectedRows = insertUser.executeUpdate();
+
+                int affectedRows = insertUser.executeUpdate();
+
+                try (ResultSet generatedKeys = insertUser.getGeneratedKeys()) {
+                    if (generatedKeys.next()) {
+                        user_id = generatedKeys.getLong(1);
+                    }
+                    else {
+                        throw new SQLException("Creating user failed, no ID obtained.");
+                    }
+                } 
             }
-            return affectedRows;
+            return user_id;
         } catch (SQLException e) {
             System.out.println("Connection Failed! Check output console");
             System.out.println("SQLException: " + e.getMessage());
@@ -221,7 +231,7 @@ public class Persister implements IPersist {
         }
     }
 
-    public void addPatients(LinkedList<Patient> patientList, Integer userId, Connection connection) {
+    public void addPatients(LinkedList<Patient> patientList, Long userId, Connection connection) {
         try {
             String statementQuery = null;
             if (userId == null) {
@@ -229,7 +239,7 @@ public class Persister implements IPersist {
             } else {
                 statementQuery = "INSERT INTO patient (name, gender, date_of_birth, address, contact_phone, email, emergency_contact, emergency_contact_phone, blood_group, medicare_no, allergies, registered_by, user_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
             }
-            insertPatient = connection.prepareStatement(statementQuery);
+            insertPatient = connection.prepareStatement(statementQuery, PreparedStatement.RETURN_GENERATED_KEYS);
             for (Patient onePatient : patientList) {
                 insertPatient.setString(1, onePatient.getName());
                 insertPatient.setString(2, onePatient.getGender());

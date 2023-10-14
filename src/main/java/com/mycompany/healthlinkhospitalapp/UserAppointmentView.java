@@ -139,7 +139,6 @@ public class UserAppointmentView extends javax.swing.JFrame {
 
     private void btSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSearchActionPerformed
         // TODO add your handling code here:
-        jLabel1.setText(login.getName());
         displayAppointments();
     }//GEN-LAST:event_btSearchActionPerformed
 
@@ -200,6 +199,8 @@ public class UserAppointmentView extends javax.swing.JFrame {
                     "Date", "Symptom", "GP Name", "Status"
                 }
         ));
+
+        jScrollPane1.setViewportView(appointmentTb);
     }
 
 

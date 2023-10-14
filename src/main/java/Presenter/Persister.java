@@ -72,57 +72,59 @@ public class Persister implements IPersist {
             dbConnection = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);
             createTableUser = dbConnection.prepareStatement(""
                     + "create table if not exists user(\n"
-                    + "userid int not null auto_increment,\n"
+                    + "id int not null auto_increment,\n"
                     + "name varchar(50) not null, \n"
                     + "username varchar(50) not null,\n"
                     + "password varchar(10) not null,\n"
                     + "email varchar(50) not null, \n"
                     + "role varchar(50) not null, \n"
-                    + "primary key (userid))");
+                    + "primary key (id))");
             createTablePatient = dbConnection.prepareStatement(""
                     + "create table if not exists patient(\n"
-                    + "patientid int not null auto_increment ,\n"
+                    + "id int not null auto_increment ,\n"
+                    + "user_id int not null, \n"
                     + "name varchar(100) not null,\n"
-                    + "gender varchar(20) not null,\n"
-                    + "dateofbirth varchar(50) not null,\n"
-                    + "address varchar(80) not null,\n"
-                    + "contactphone varchar(20) not null,\n"
-                    + "email varchar(50) not null,\n"
-                    + "emergencycontact varchar(100) not null,\n"
-                    + "emergencycontactphone varchar(50) not null,\n"
-                    + "bloodgroup varchar(50) not null,\n"
-                    + "medicareno varchar(50) not null,\n"
-                    + "allergies varchar(50) not null,\n"
-                    + "registeredby varchar(100) not null,\n"
-                    + "primary key (patientid))");
+                    + "gender varchar(20),\n"
+                    + "date_of_birth varchar(50),\n"
+                    + "address varchar(80),\n"
+                    + "contact_phone varchar(20),\n"
+                    + "email varchar(50),\n"
+                    + "emergency_contact varchar(100),\n"
+                    + "emergency_contact_phone varchar(50),\n"
+                    + "blood_group varchar(50),\n"
+                    + "medicare_no varchar(50),\n"
+                    + "allergies varchar(50),\n"
+                    + "registered_by varchar(100),\n"
+                    + "primary key (id))");
             createTableDiagnosis = dbConnection.prepareStatement(""
                     + "create table if not exists diagnosis(\n"
-                    + "patientid int not null auto_increment ,\n"
+                    + "id int not null auto_increment,\n"
+                    + "patient_id int not null ,\n"
                     + "symptom varchar(200) not null,\n"
                     + "diagnosis varchar(200) not null,\n"
                     + "medicines varchar(200) not null,\n"
-                    + "recordby varchar(100) not null,\n"
-                    + "primary key (patientid))");
+                    + "record_by varchar(100) not null,\n"
+                    + "primary key (id))");
             createTableBilling = dbConnection.prepareStatement(""
                     + "create table if not exists billing(\n"
-                    + "billid int not null auto_increment,\n"
-                    + "patientid int not null,\n"
-                    + "invoicedate int not null,\n"
+                    + "id int not null auto_increment,\n"
+                    + "patient_id int not null,\n"
+                    + "invoice_date int not null,\n"
                     + "detail varchar(100) not null,\n"
                     + "unit int not null,\n"
                     + "amount int not null,\n"
                     + "total int not null,\n"
-                    + "primary key (billid))");
+                    + "primary key (id))");
             createTableAppointment = dbConnection.prepareStatement(""
                     + "create table if not exists appointment(\n"
-                    + "appointmentid int not null auto_increment,\n"
-                    + "patientid int not null, \n"
+                    + "id int not null auto_increment,\n"
+                    + "patient_id int not null, \n"
                     + "name varchar(50) not null, \n"
                     + "date varchar(50) not null, \n"
                     + "symptom varchar(200) not null, \n"
-                    + "gpname varchar(50) not null, \n"
+                    + "gp_name varchar(50) not null, \n"
                     + "status varchar(20) not null, \n"
-                    + "primary key (appointmentid))");
+                    + "primary key (id))");
             createTableUser.executeUpdate();
             createTablePatient.executeUpdate();
             createTableDiagnosis.executeUpdate();
@@ -131,19 +133,19 @@ public class Persister implements IPersist {
 
             replaceUser = dbConnection.prepareStatement(
                     "replace into user"
-                    + "(userid, name, username, password, email, role)"
+                    + "(id, name, username, password, email, role)"
                     + "values (1,'admin','admin','admin','admin@HLH.com.au','admin')"
             );
             replaceUser.executeUpdate();
             replaceUser = dbConnection.prepareStatement(
                     "replace into user"
-                    + "(userid, name, username, password, email, role)"
+                    + "(id, name, username, password, email, role)"
                     + "values (2,'staff','staff','staff','staff@HLH.com.au','staff')"
             );
             replaceUser.executeUpdate();
             replaceUser = dbConnection.prepareStatement(
                     "replace into user"
-                    + "(userid, name, username, password, email, role)"
+                    + "(id, name, username, password, email, role)"
                     + "values (3, 'user','user','user','user@HLH.com.au','user')"
             );
             replaceUser.executeUpdate();
@@ -166,6 +168,7 @@ public class Persister implements IPersist {
 
             if (results.next()) {
                 Map<String, String> userDetails = new HashMap<>();
+                userDetails.put("id", results.getString("id"));
                 userDetails.put("role", results.getString("role"));
                 userDetails.put("username", results.getString("username"));
                 return userDetails;
@@ -196,7 +199,8 @@ public class Persister implements IPersist {
         }
     }
 
-    public void addUsers(LinkedList<User> userList, Connection connection) {
+    public Integer addUsers(LinkedList<User> userList, Connection connection) {
+        Integer affectedRows = null;
         try {
             insertUser = connection.prepareStatement("INSERT INTO user (username, password, name, email, role) VALUES (?, ?, ?, ?, ?)");
             for (User oneUser : userList) {
@@ -205,20 +209,27 @@ public class Persister implements IPersist {
                 insertUser.setString(3, oneUser.getName());
                 insertUser.setString(4, oneUser.getEmail());
                 insertUser.setString(5, oneUser.getRoles());
-
-                insertUser.executeUpdate();
+                affectedRows = insertUser.executeUpdate();
             }
+            return affectedRows;
         } catch (SQLException e) {
             System.out.println("Connection Failed! Check output console");
             System.out.println("SQLException: " + e.getMessage());
             System.out.println("SQLState: " + e.getSQLState());
             e.printStackTrace();
+            return null;
         }
     }
 
-    public void addPatients(LinkedList<Patient> patientList, Connection connection) {
+    public void addPatients(LinkedList<Patient> patientList, Integer userId, Connection connection) {
         try {
-            insertPatient = connection.prepareStatement("INSERT INTO patient (name, gender, dateofbirth, address, contactphone, email, emergencycontact, emergencycontactphone, bloodgroup, medicareno, allergies, registeredby) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+            String statementQuery = null;
+            if (userId == null) {
+                statementQuery = "INSERT INTO patient (name, gender, date_of_birth, address, contact_phone, email, emergency_contact, emergency_contact_phone, blood_group, medicare_no, allergies, registered_by) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            } else {
+                statementQuery = "INSERT INTO patient (name, gender, date_of_birth, address, contact_phone, email, emergency_contact, emergency_contact_phone, blood_group, medicare_no, allergies, registered_by, user_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            }
+            insertPatient = connection.prepareStatement(statementQuery);
             for (Patient onePatient : patientList) {
                 insertPatient.setString(1, onePatient.getName());
                 insertPatient.setString(2, onePatient.getGender());
@@ -232,6 +243,9 @@ public class Persister implements IPersist {
                 insertPatient.setString(10, onePatient.getMedicareNo());
                 insertPatient.setString(11, onePatient.getAllergies());
                 insertPatient.setString(12, onePatient.getRegisteredBy());
+                if (userId != null) {
+                    insertPatient.setString(13, userId.toString());
+                }
                 insertPatient.executeUpdate();
             }
         } catch (SQLException e) {
@@ -252,16 +266,16 @@ public class Persister implements IPersist {
                 patientList.add(new Patient(
                         results.getString("name"),
                         results.getString("gender"),
-                        results.getString("dateOfBirth"),
+                        results.getString("date_of_birth"),
                         results.getString("adress"),
-                        results.getString("contactNumber"),
+                        results.getString("contact_number"),
                         results.getString("email"),
-                        results.getString("emergencyContact"),
-                        results.getString("emergencyContactPhone"),
-                        results.getString("bloodGroup"),
-                        results.getString("medicareNo"),
+                        results.getString("emergency_contact"),
+                        results.getString("emergency_contact_phone"),
+                        results.getString("blood_group"),
+                        results.getString("medicare_no"),
                         results.getString("allergies"),
-                        results.getString("registeredBy")));
+                        results.getString("registered_by")));
 
             }
 
@@ -276,7 +290,7 @@ public class Persister implements IPersist {
 
     public boolean addAppointment(Appointment appointment, Connection connection) {
         try {
-            PreparedStatement insertAppointment = connection.prepareStatement("INSERT INTO appointment (patientid, name, date, symptom, gpname, status) VALUES (?, ?, ?, ?, ?, ?)");
+            PreparedStatement insertAppointment = connection.prepareStatement("INSERT INTO appointment (patient_id, name, date, symptom, gp_name, status) VALUES (?, ?, ?, ?, ?, ?)");
 
             // Set the values in the PreparedStatement
             insertAppointment.setLong(1, appointment.getPatientId());
@@ -303,36 +317,44 @@ public class Persister implements IPersist {
         return false;
     }
 
-    public List<Appointment> selectAppointments(String username) {
+    public List<Appointment> selectAppointments(Integer userId) {
         List<Appointment> appointments = new ArrayList<>();
         Connection connection = null;
+        int patientId = 0;
 
         try {
             connection = getConnection();
-
-            String sql = "SELECT * FROM appointment WHERE name = ?";
-            PreparedStatement preparedStatement = connection.prepareStatement(sql);
-            preparedStatement.setString(1, username);
+            String sqlPatient = "SELECT * FROM patient WHERE user_id = ?";
+            PreparedStatement preparedStatement = connection.prepareStatement(sqlPatient);
+            preparedStatement.setInt(1, userId);
             ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+              patientId =  resultSet.getInt("id");
+            }
+            
+            String sql = "SELECT * FROM appointment WHERE patient_id = ?";
+            preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setInt(1, patientId);
+            resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()) {
                 Appointment appointment = new Appointment();
                 appointment.setAppointmentDate(resultSet.getString("date"));
                 appointment.setSymptom(resultSet.getString("symptom"));
-                appointment.setGpName(resultSet.getString("gpname"));
+                appointment.setGpName(resultSet.getString("gp_name"));
                 String statusString = resultSet.getString("status");
                 AppointmentStatus status;
-                if ("Schedule".equals(statusString)){
+                if ("Schedule".equals(statusString)) {
                     status = AppointmentStatus.Schedule;
-                }else if("Completed".equals(statusString)){
+                } else if ("Completed".equals(statusString)) {
                     status = AppointmentStatus.Completed;
-                }else if("Canceled".equals(statusString)){
+                } else if ("Canceled".equals(statusString)) {
                     status = AppointmentStatus.Canceled;
-                }else{
+                } else {
                     status = null;
                 }
                 appointment.setStatus(status);
-                
+
                 appointments.add(appointment);
             }
 
@@ -356,7 +378,7 @@ public class Persister implements IPersist {
 
     public void addBilling(LinkedList<Billing> billingList, Connection connection) {
         try {
-            insertBilling = connection.prepareStatement("INSERT INTO billing (patientid, name, date, detail, unit, amount, total) VALUES (?, ?, ?, ?, ?, ?, ?)");
+            insertBilling = connection.prepareStatement("INSERT INTO billing (patient_id, name, date, detail, unit, amount, total) VALUES (?, ?, ?, ?, ?, ?, ?)");
             for (Billing oneBilling : billingList) {
                 insertBilling.setLong(1, oneBilling.getPatientId());
                 insertBilling.setString(2, oneBilling.getName());
@@ -376,7 +398,7 @@ public class Persister implements IPersist {
     }
 
     public Patient getPatientByID(String patientID, Connection connection) throws SQLException {
-        String query = "SELECT * FROM Patient WHERE PatientID = ?";
+        String query = "SELECT * FROM patient WHERE id = ?";
         PreparedStatement preparedStatement = connection.prepareStatement(query);
         preparedStatement.setString(1, patientID);
 
@@ -384,8 +406,8 @@ public class Persister implements IPersist {
 
         if (resultSet.next()) {
             Patient patient = new Patient();
-            patient.setId(resultSet.getLong("PatientID"));
-            patient.setName(resultSet.getString("Name"));
+            patient.setId(resultSet.getLong("id"));
+            patient.setName(resultSet.getString("name"));
             // Set other patient properties as well
 
             return patient;

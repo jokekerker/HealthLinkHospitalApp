@@ -7,7 +7,7 @@ import java.util.LinkedList;
 
 public interface IPersist {
 
-    public void addUsers(LinkedList<User> userList, Connection connection);
-    public void addPatients(LinkedList<Patient> patientList, Connection connection);
+    public Integer addUsers(LinkedList<User> userList, Connection connection);
+    public void addPatients(LinkedList<Patient> patientList, Integer userId, Connection connection);
     public LinkedList<Patient> selectPatients();
 }

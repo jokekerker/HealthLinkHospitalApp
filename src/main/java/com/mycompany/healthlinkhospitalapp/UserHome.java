@@ -130,7 +130,7 @@ public class UserHome extends javax.swing.JFrame {
 
     private void appointMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_appointMenuActionPerformed
         // TODO add your handling code here:
-        UserAppointmentView userAppointmentView = new UserAppointmentView(this.login.getName());
+        UserAppointmentView userAppointmentView = new UserAppointmentView(this.login);
         userAppointmentView.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_appointMenuActionPerformed

@@ -118,8 +118,10 @@ public class LoginFrame extends javax.swing.JFrame {
         if (userDetails != null) {
             String role = userDetails.get("role");
             String retrievedUsername = userDetails.get("username");
+            
 
             this.login.setName(retrievedUsername);
+            this.login.setId(Integer.parseInt(userDetails.get("id")));
 
             Home home = new Home(role, retrievedUsername, this.login);
             UserHome userHome = new UserHome(role, retrievedUsername, this.login);

@@ -357,7 +357,7 @@ public class NewPatient extends javax.swing.JFrame {
         Connection connection = null;
         connection = patientPersister.getConnection();
         if (connection != null) {
-            patientPersister.addPatients(patients, connection);
+            patientPersister.addPatients(patients,null , connection);
             JOptionPane.showMessageDialog(this, "Patient registered successfully.", "Success", JOptionPane.INFORMATION_MESSAGE);
             this.dispose();
         } else {

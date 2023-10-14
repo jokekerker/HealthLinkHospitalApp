@@ -2,6 +2,7 @@
 package com.mycompany.healthlinkhospitalapp;
 
 import Model.User;
+import Model.patient.Patient;
 import java.util.Arrays;
 import java.util.LinkedList;
 import javax.swing.JOptionPane;
@@ -184,15 +185,22 @@ public class UserRegister extends javax.swing.JFrame {
                 user.setPassword(new String(password));
                 user.setEmail(email);
                 user.setRoles("user"); //default role
+                
+                Patient patient = new Patient();
+                patient.setName(name);
+                patient.setEmail(email);
 
                 // Create a list of users and add the user to the list
                 LinkedList<User> userList = new LinkedList<>();
+                LinkedList<Patient> patientList = new LinkedList<>();
                 userList.add(user);
+                patientList.add(patient);
 
                 // Call the addUsers method to insert the user into the database
                 Connection connection = patientPersister.getConnection();
                 if (connection != null) {
-                    patientPersister.addUsers(userList, connection);
+                    Integer userId = patientPersister.addUsers(userList, connection);
+                    patientPersister.addPatients(patientList, userId, connection);
                     JOptionPane.showMessageDialog(this, "Registration successful.");
                     this.dispose();
                     LoginFrame loginFrame = new LoginFrame();

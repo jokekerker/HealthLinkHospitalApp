@@ -3,6 +3,8 @@ package com.mycompany.healthlinkhospitalapp;
 import Model.Appointment;
 import Model.Login;
 import Presenter.Persister;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
 
@@ -14,10 +16,10 @@ public class UserAppointmentView extends javax.swing.JFrame {
     /**
      * Creates new form UserAppointmentView
      */
-    public UserAppointmentView(String name) {
-        this.name = name;
+    public UserAppointmentView(Login login) {
+        this.login = login;
         initComponents();
-        
+
     }
 
     /**
@@ -137,6 +139,7 @@ public class UserAppointmentView extends javax.swing.JFrame {
 
     private void btSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSearchActionPerformed
         // TODO add your handling code here:
+        jLabel1.setText(login.getName());
         displayAppointments();
     }//GEN-LAST:event_btSearchActionPerformed
 
@@ -176,26 +179,29 @@ public class UserAppointmentView extends javax.swing.JFrame {
     }
 
     private void displayAppointments() {
-        String username = login.getName(); // Get the username from the logged-in user
 
         // Use the Persister class to select appointments
         Persister persister = new Persister();
-        List<Appointment> appointments = persister.selectAppointments(username);
-        
-        DefaultTableModel model = (DefaultTableModel) appointmentTb.getModel();
-        
-        model.setRowCount(0);
-        
-        for (Appointment appointment : appointments){
-            String[] rowData = {
-                appointment.getAppointmentDate(),
-                appointment.getSymptom(),
-                appointment.getGpName(),
-                appointment.getStatus().toString()
+        List<Appointment> appointments = persister.selectAppointments(login.getId());
+
+        Object[][] data1 = new Object[][]{
+                {null, null, null, null}
             };
-            model.addRow(rowData);
+
+        for (Appointment appointment : appointments) {
+            data1 = new Object[][]{
+                {appointment.getAppointmentDate(), appointment.getSymptom(), appointment.getGpName(), appointment.getStatus().toString()}
+            };
+
         }
+        appointmentTb.setModel(new javax.swing.table.DefaultTableModel(
+                data1,
+                new String[]{
+                    "Date", "Symptom", "GP Name", "Status"
+                }
+        ));
     }
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable appointmentTb;
